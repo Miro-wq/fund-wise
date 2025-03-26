@@ -1,4 +1,3 @@
-// History.js
 import React, { useContext } from 'react';
 import { ExpenseContext } from '../context/ExpenseContext';
 

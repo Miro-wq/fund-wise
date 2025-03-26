@@ -1,4 +1,3 @@
-// Home.js
 import React, { useContext, useState, useEffect } from 'react';
 import { ExpenseContext } from '../context/ExpenseContext';
 
@@ -10,14 +9,14 @@ function Home() {
   const dailyLimit = salary ? Number(salary) / 30 : 0;
   const totalExpenses = expenses.reduce((total, exp) => total + exp.amount, 0);
 
-  // Solicită permisiunea pentru notificări la montare
+  //permisiune pentru notificări la montare
   useEffect(() => {
     if (Notification.permission !== 'granted') {
       Notification.requestPermission();
     }
   }, []);
 
-  // Trimite notificare dacă se depășește limita zilnică
+  //notificare dacă se depășește limita zilnică
   useEffect(() => {
     if (dailyLimit > 0 && totalExpenses > dailyLimit) {
       if (Notification.permission === 'granted') {
