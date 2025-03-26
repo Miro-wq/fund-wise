@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { ExpenseContext } from '../context/ExpenseContext';
+import { ExpenseContext } from '../../context/ExpenseContext';
 
 function Home() {
   const { salary, setSalary, addExpense, expenses } = useContext(ExpenseContext);

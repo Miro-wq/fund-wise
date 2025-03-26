@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { ExpenseProvider } from './context/ExpenseContext';
-import Home from './pages/Home';
-import History from './pages/History';
+import Home from './pages/Home/Home';
+import History from './pages/History/History';
 
 function App() {
   return (

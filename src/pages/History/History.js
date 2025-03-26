@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { ExpenseContext } from '../context/ExpenseContext';
+import { ExpenseContext } from '../../context/ExpenseContext';
 
 function History() {
   const { expenses } = useContext(ExpenseContext);
