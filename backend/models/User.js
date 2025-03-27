@@ -10,6 +10,7 @@ const UserSchema = new mongoose.Schema({
   username: { type: String, unique: true, required: true },
   password: { type: String, required: true },
   salary: { type: Number, default: 0 },
+  extraIncome: { type: Number, default: 0 },
   expenses: [ExpenseSchema]
 });
 

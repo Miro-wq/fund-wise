@@ -72,7 +72,11 @@ app.post('/api/register', async (req, res) => {
 app.get('/api/data', authMiddleware, async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
-    res.json({ salary: user.salary, expenses: user.expenses });
+    res.json({
+      salary: user.salary,
+      extraIncome: user.extraIncome,
+      expenses: user.expenses
+    });
   } catch (err) {
     res.status(500).json({ message: 'Server error' });
   }
@@ -91,10 +95,11 @@ app.post('/api/salary', authMiddleware, async (req, res) => {
 
 //netlify/functions/api.js
 app.post('/api/reset', authMiddleware, async (req, res) => {
-  const { salary } = req.body;
+  const { salary, extraIncome } = req.body;
   try {
     const user = await User.findById(req.user.id);
     user.salary = salary;
+    user.extraIncome = Number(extraIncome);
     user.expenses = [];
     await user.save();
     res.json({ message: 'Reset complet. Salariu nou și expenses goale.' });

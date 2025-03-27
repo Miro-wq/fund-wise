@@ -16,22 +16,26 @@ export const ExpenseProvider = ({ children }) => {
       axios.get('/api/data', {
         headers: { Authorization: `Bearer ${token}` },
       })
-      .then((res) => {
-        setSalary(res.data.salary);
-        setExpenses(res.data.expenses);
-        setExtraIncome(res.data.extraIncome);
-      })
-      .catch((err) => console.error(err));
+        .then((res) => {
+          setSalary(res.data.salary);
+          setExpenses(res.data.expenses);
+          setExtraIncome(res.data.extraIncome);
+        })
+        .catch((err) => console.error(err));
     }
   }, [token]);
 
   const addExpense = (name, amount) => {
-    const newExpense = { name, amount: Number(amount) };
+    const newExpense = { name, amount: Number(amount), date: new Date().toISOString() };
     setExpenses([...expenses, newExpense]);
     axios.post('/api/expenses', newExpense, {
       headers: { Authorization: `Bearer ${token}` },
     })
-    .catch(err => console.error(err));
+      .then(response => {
+        //starea cu lista completă de cheltuieli primită de la server
+        setExpenses(response.data.expenses);
+      })
+      .catch(err => console.error(err));
   };
 
   const updateSalary = (newSalary) => {
@@ -41,7 +45,7 @@ export const ExpenseProvider = ({ children }) => {
     axios.post('/api/reset', { salary: newSalary }, {
       headers: { Authorization: `Bearer ${token}` },
     })
-    .catch(err => console.error(err));
+      .catch(err => console.error(err));
   };
 
   const updateExtraIncome = (value) => {
