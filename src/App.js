@@ -1,24 +1,49 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { ExpenseProvider } from './context/ExpenseContext';
-import Home from './pages/Home/Home';
-import History from './pages/History/History';
+import React, { useContext } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate, Link } from 'react-router-dom';
+import { ExpenseProvider, ExpenseContext } from '../src/context/ExpenseContext';
+import Home from '../src/pages/Home/Home';
+import History from '../src/pages/History/History';
+import Login from '../src/pages/Login/Login';
+import Register from '../src/pages/Register/Register';
+import styles from '../src/App.module.css';
 
-function App() {
+const PrivateRoute = ({ children }) => {
+  const { token } = useContext(ExpenseContext);
+  return token ? children : <Navigate to="/login" />;
+};
+
+function AppRoutes() {
+  const { token, logout } = useContext(ExpenseContext);
   return (
-    <ExpenseProvider>
-      <Router>
-        <nav style={{ padding: '10px', background: '#f2f2f2' }}>
-          <Link to="/" style={{ marginRight: '10px' }}>Home</Link>
-          <Link to="/history">History</Link>
-        </nav>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/history" element={<History />} />
-        </Routes>
-      </Router>
-    </ExpenseProvider>
+    <Router>
+      <nav className={styles.nav}>
+        {token ? (
+          <>
+            <Link to="/" className={styles.link}>Home</Link>
+            <Link to="/history" className={styles.link}>History</Link>
+            <button onClick={logout} className={styles.button}>Logout</button>
+          </>
+        ) : (
+          <>
+            <Link to="/login" className={styles.link}>Login</Link>
+            <Link to="/register" className={styles.link}>Register</Link>
+          </>
+        )}
+      </nav>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/" element={<PrivateRoute><Home /></PrivateRoute>} />
+        <Route path="/history" element={<PrivateRoute><History /></PrivateRoute>} />
+      </Routes>
+    </Router>
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <ExpenseProvider>
+      <AppRoutes />
+    </ExpenseProvider>
+  );
+}

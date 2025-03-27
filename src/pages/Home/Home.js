@@ -1,29 +1,52 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { ExpenseContext } from '../../context/ExpenseContext';
+import styles from '../Home/Home.module.css';
 
 function Home() {
-  const { salary, setSalary, addExpense, expenses } = useContext(ExpenseContext);
+  const { 
+    salary, 
+    extraIncome, 
+    setSalary, 
+    setExtraIncome, 
+    addExpense, 
+    expenses 
+  } = useContext(ExpenseContext);
+
+  const [localSalary, setLocalSalary] = useState(salary || "");
+  const [localExtraIncome, setLocalExtraIncome] = useState(extraIncome || "");
   const [expenseName, setExpenseName] = useState("");
   const [expenseAmount, setExpenseAmount] = useState("");
-  
-  const dailyLimit = salary ? Number(salary) / 30 : 0;
-  const totalExpenses = expenses.reduce((total, exp) => total + exp.amount, 0);
 
-  //permisiune pentru notificări la montare
+  //limita zilnică din suma salariului și a venitului suplimentar
+  const dailyLimit = (Number(localSalary) + Number(localExtraIncome)) / 30 || 0;
+  const totalExpenses = expenses.reduce((acc, e) => acc + e.amount, 0);
+
   useEffect(() => {
-    if (Notification.permission !== 'granted') {
-      Notification.requestPermission();
+    if (salary) {
+      setLocalSalary(salary);
     }
-  }, []);
+  }, [salary]);
 
   //notificare dacă se depășește limita zilnică
   useEffect(() => {
+    console.log('dailyLimit:', dailyLimit, 'totalExpenses:', totalExpenses);
     if (dailyLimit > 0 && totalExpenses > dailyLimit) {
       if (Notification.permission === 'granted') {
         new Notification('Ai depășit limita zilnică de cheltuieli!');
+      } else {
+        console.log('Notificările nu sunt permise.');
       }
     }
   }, [totalExpenses, dailyLimit]);
+
+  const handleSalarySubmit = (e) => {
+    e.preventDefault();
+    if (localSalary) {
+      setSalary(localSalary);
+      //actualizează venitul suplimentar
+      setExtraIncome(localExtraIncome);
+    }
+  };
 
   const handleAddExpense = (e) => {
     e.preventDefault();
@@ -35,51 +58,58 @@ function Home() {
   };
 
   return (
-    <div style={{ padding: '20px', fontFamily: 'Arial' }}>
-      <h1>Tracker Cheltuieli - Home</h1>
-      <div style={{ marginBottom: '20px' }}>
+    <div className={styles.container}>
+      <h1>Expense Tracker</h1>
+      <form onSubmit={handleSalarySubmit} className={styles.salaryForm}>
         <label>
           Salariu lunar:
-          <input 
-            type="number" 
-            value={salary} 
-            onChange={(e) => setSalary(e.target.value)}
+          <input
+            type="number"
+            value={localSalary}
+            onChange={(e) => setLocalSalary(e.target.value)}
             placeholder="Introdu salariul"
-            style={{ marginLeft: '10px' }}
+            className={styles.input}
           />
         </label>
-      </div>
-      <div style={{ marginBottom: '20px' }}>
-        <h2>Limita zilnică: {salary ? dailyLimit.toFixed(2) : ""}</h2>
-      </div>
-      <form onSubmit={handleAddExpense} style={{ marginBottom: '20px' }}>
-        <div style={{ marginBottom: '10px' }}>
-          <label>
-            Cheltuială:
-            <input 
-              type="text" 
-              value={expenseName} 
-              onChange={(e) => setExpenseName(e.target.value)}
-              placeholder="Nume cheltuială"
-              style={{ marginLeft: '10px' }}
-            />
-          </label>
-        </div>
-        <div style={{ marginBottom: '10px' }}>
-          <label>
-            Suma:
-            <input 
-              type="number" 
-              value={expenseAmount} 
-              onChange={(e) => setExpenseAmount(e.target.value)}
-              placeholder="Introdu suma"
-              style={{ marginLeft: '10px' }}
-            />
-          </label>
-        </div>
-        <button type="submit">Adaugă cheltuială</button>
+        <label>
+          Venit suplimentar:
+          <input
+            type="number"
+            value={localExtraIncome}
+            onChange={(e) => setLocalExtraIncome(e.target.value)}
+            placeholder="Introdu venitul suplimentar"
+            className={styles.input}
+          />
+        </label>
+        <button type="submit" className={styles.button}>Salvează</button>
       </form>
-      <div>
+      <div className={styles.limit}>
+        <h2>Limita zilnică: {localSalary ? dailyLimit.toFixed(2) : ""}</h2>
+      </div>
+      <form onSubmit={handleAddExpense} className={styles.expenseForm}>
+        <label>
+          Cheltuială:
+          <input
+            type="text"
+            value={expenseName}
+            onChange={(e) => setExpenseName(e.target.value)}
+            placeholder="Nume cheltuială"
+            className={styles.input}
+          />
+        </label>
+        <label>
+          Suma:
+          <input
+            type="number"
+            value={expenseAmount}
+            onChange={(e) => setExpenseAmount(e.target.value)}
+            placeholder="Introdu suma"
+            className={styles.input}
+          />
+        </label>
+        <button type="submit" className={styles.button}>Adaugă cheltuială</button>
+      </form>
+      <div className={styles.total}>
         <h3>Total cheltuieli: {expenses.length > 0 ? totalExpenses : ""}</h3>
       </div>
     </div>

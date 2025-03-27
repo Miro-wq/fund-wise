@@ -1,30 +1,33 @@
 import React, { useState, useContext } from 'react';
 import { ExpenseContext } from '../../context/ExpenseContext';
-import { useNavigate } from 'react-router-dom';
-import styles from '../Login/Login.module.css';
+import { useNavigate, Link } from 'react-router-dom';
+import axios from 'axios';
+import styles from '../Register/Register.module.css';
 
-function Login() {
-  const { login } = useContext(ExpenseContext);
+function Register() {
+  const { setUser } = useContext(ExpenseContext);
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleLogin = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
-    login(username, password)
-      .then(() => {
-        navigate('/');
-      })
-      .catch(err => {
-        setError("Login eșuat");
-      });
+    try {
+      const res = await axios.post('/api/register', { username, password });
+      const { token, user } = res.data;
+      localStorage.setItem('token', token);
+      setUser(user);
+      navigate('/');
+    } catch (err) {
+      setError(err.response?.data?.message || "Înregistrare eșuată");
+    }
   };
 
   return (
     <div className={styles.container}>
-      <h1>Logare</h1>
-      <form onSubmit={handleLogin} className={styles.form}>
+      <h1>Înregistrare</h1>
+      <form onSubmit={handleRegister} className={styles.form}>
         <label>
           Utilizator:
           <input
@@ -46,10 +49,13 @@ function Login() {
           />
         </label>
         {error && <p className={styles.error}>{error}</p>}
-        <button type="submit" className={styles.button}>Logare</button>
+        <button type="submit" className={styles.button}>Înregistrare</button>
       </form>
+      <p>
+        Ai deja un cont? <Link to="/login">Conectează-te</Link>
+      </p>
     </div>
   );
 }
 
-export default Login;
+export default Register;

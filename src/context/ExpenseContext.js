@@ -5,6 +5,7 @@ export const ExpenseContext = createContext();
 
 export const ExpenseProvider = ({ children }) => {
   const [salary, setSalary] = useState("");
+  const [extraIncome, setExtraIncome] = useState("");
   const [expenses, setExpenses] = useState([]);
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(localStorage.getItem('token') || "");
@@ -12,46 +13,44 @@ export const ExpenseProvider = ({ children }) => {
   //daca este token, se preia datele pentru luna curentă
   useEffect(() => {
     if (token) {
-      axios
-        .get('/api/data', {
-          headers: { Authorization: `Bearer ${token}` },
-        })
-        .then((res) => {
-          const data = res.data;
-          setSalary(data.salary);
-          setExpenses(data.expenses);
-        })
-        .catch((err) => console.error(err));
+      axios.get('/api/data', {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => {
+        setSalary(res.data.salary);
+        setExpenses(res.data.expenses);
+        setExtraIncome(res.data.extraIncome);
+      })
+      .catch((err) => console.error(err));
     }
   }, [token]);
 
   const addExpense = (name, amount) => {
     const newExpense = { name, amount: Number(amount) };
     setExpenses([...expenses, newExpense]);
-    //endpoint pentru a salva cheltuiala în backend
-    axios
-      .post('/api/expenses', newExpense, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .catch((err) => console.error(err));
+    axios.post('/api/expenses', newExpense, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .catch(err => console.error(err));
   };
 
   const updateSalary = (newSalary) => {
     setSalary(newSalary);
+    setExpenses([]);
     //endpoint pentru a actualiza salariul
-    axios
-      .post(
-        '/api/salary',
-        { salary: newSalary },
-        { headers: { Authorization: `Bearer ${token}` } }
-      )
-      .catch((err) => console.error(err));
+    axios.post('/api/reset', { salary: newSalary }, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .catch(err => console.error(err));
+  };
+
+  const updateExtraIncome = (value) => {
+    setExtraIncome(value);
   };
 
   const login = (username, password) => {
-    return axios
-      .post('/api/login', { username, password })
-      .then((res) => {
+    return axios.post('/api/login', { username, password })
+      .then(res => {
         setToken(res.data.token);
         localStorage.setItem('token', res.data.token);
         setUser(res.data.user);
@@ -66,7 +65,19 @@ export const ExpenseProvider = ({ children }) => {
 
   return (
     <ExpenseContext.Provider
-      value={{ salary, setSalary: updateSalary, expenses, addExpense, user, token, login, logout }}
+      value={{
+        salary,
+        extraIncome,
+        expenses,
+        user,
+        token,
+        addExpense,
+        setSalary: updateSalary,
+        setExtraIncome: updateExtraIncome,
+        setExpenses,
+        login,
+        logout,
+      }}
     >
       {children}
     </ExpenseContext.Provider>
