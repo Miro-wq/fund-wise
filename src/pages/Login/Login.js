@@ -23,9 +23,15 @@ function Login() {
 
   return (
     <div className={styles.container}>
-      <h1>Logare</h1>
+      <div className={styles.content}>
+      <h1 className={styles.intro}>Welcome to ExpenseTracker</h1>
+      <p className={styles.pLogin}>Sign in to your account or create a new one</p>
+      </div>
+      <div className={styles.formContainer}>
+      <h3 className={styles.h2}>Login</h3>
+      <p className={styles.p}>Enter your credentials to access your account</p>
       <form onSubmit={handleLogin} className={styles.form}>
-        <label>
+        <label className={styles.label}>
           Utilizator:
           <input
             type="text"
@@ -48,6 +54,7 @@ function Login() {
         {error && <p className={styles.error}>{error}</p>}
         <button type="submit" className={styles.button}>Logare</button>
       </form>
+      </div>
     </div>
   );
 }
