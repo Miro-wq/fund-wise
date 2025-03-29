@@ -1,6 +1,7 @@
-require('dotenv').config({ path: './backend/.env' });
+require('dotenv').config({ path: process.env.NODE_ENV !== 'production' ? './backend/.env' : undefined });
 const serverless = require('serverless-http');
 const express = require('express');
+console.log('MONGODB_URI:', process.env.MONGODB_URI);
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const bodyParser = require('body-parser');
