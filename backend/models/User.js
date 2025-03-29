@@ -11,7 +11,15 @@ const UserSchema = new mongoose.Schema({
   password: { type: String, required: true },
   salary: { type: Number, default: 0 },
   extraIncome: { type: Number, default: 0 },
+  rent: { type: Number, default: 0 },
+  water: { type: Number, default: 0 },
+  gas: { type: Number, default: 0 },
+  electricity: { type: Number, default: 0 },
+  internet: { type: Number, default: 0 },
+  tv: { type: Number, default: 0 },
+  phone: { type: Number, default: 0 },
   expenses: [ExpenseSchema]
 });
+
 
 module.exports = mongoose.model('User', UserSchema);

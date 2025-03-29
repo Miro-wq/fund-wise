@@ -9,6 +9,14 @@ export const ExpenseProvider = ({ children }) => {
   const [expenses, setExpenses] = useState([]);
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(localStorage.getItem('token') || "");
+  const [rent, setRent] = useState("");
+  const [water, setWater] = useState("");
+  const [gas, setGas] = useState("");
+  const [electricity, setElectricity] = useState("");
+  const [internet, setInternet] = useState("");
+  const [tv, setTV] = useState("");
+  const [phone, setPhone] = useState("");
+
 
   //daca este token, se preia datele pentru luna curentă
   useEffect(() => {
@@ -20,6 +28,13 @@ export const ExpenseProvider = ({ children }) => {
           setSalary(res.data.salary);
           setExpenses(res.data.expenses);
           setExtraIncome(res.data.extraIncome);
+          setRent(res.data.rent);
+          setWater(res.data.water);
+          setGas(res.data.gas);
+          setElectricity(res.data.electricity);
+          setInternet(res.data.internet);
+          setTV(res.data.tv);
+          setPhone(res.data.phone);
         })
         .catch((err) => console.error(err));
     }
@@ -75,6 +90,13 @@ export const ExpenseProvider = ({ children }) => {
         expenses,
         user,
         token,
+        rent,
+        water,
+        gas,
+        electricity,
+        internet,
+        tv,
+        phone,
         addExpense,
         setSalary: updateSalary,
         setExtraIncome: updateExtraIncome,
@@ -86,4 +108,5 @@ export const ExpenseProvider = ({ children }) => {
       {children}
     </ExpenseContext.Provider>
   );
+
 };

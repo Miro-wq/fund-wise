@@ -72,10 +72,17 @@ app.post('/api/register', async (req, res) => {
 app.get('/api/data', authMiddleware, async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
-    res.json({
-      salary: user.salary,
+    res.json({ 
+      salary: user.salary, 
       extraIncome: user.extraIncome,
-      expenses: user.expenses
+      rent: user.rent,
+      water: user.water,
+      gas: user.gas,
+      electricity: user.electricity,
+      internet: user.internet,
+      tv: user.tv,
+      phone: user.phone,
+      expenses: user.expenses 
     });
   } catch (err) {
     res.status(500).json({ message: 'Server error' });
@@ -95,18 +102,26 @@ app.post('/api/salary', authMiddleware, async (req, res) => {
 
 //netlify/functions/api.js
 app.post('/api/reset', authMiddleware, async (req, res) => {
-  const { salary, extraIncome } = req.body;
+  const { salary, extraIncome, rent, water, gas, electricity, internet, tv, phone } = req.body;
   try {
     const user = await User.findById(req.user.id);
     user.salary = salary;
     user.extraIncome = Number(extraIncome);
+    user.rent = Number(rent);
+    user.water = Number(water);
+    user.gas = Number(gas);
+    user.electricity = Number(electricity);
+    user.internet = Number(internet);
+    user.tv = Number(tv);
+    user.phone = Number(phone);
     user.expenses = [];
     await user.save();
-    res.json({ message: 'Reset complet. Salariu nou și expenses goale.' });
+    res.json({ message: 'Income and utilities updated, expenses reset.' });
   } catch (err) {
-    res.status(500).json({ message: 'Eroare la reset' });
+    res.status(500).json({ message: 'Server error during reset.' });
   }
 });
+
 
 //endpoint pentru adăugarea unei cheltuieli
 app.post('/api/expenses', authMiddleware, async (req, res) => {
