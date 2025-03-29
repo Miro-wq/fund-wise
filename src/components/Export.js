@@ -4,7 +4,7 @@ import autoTable from 'jspdf-autotable';
 
 const exportPDF = (expenses) => {
   const doc = new jsPDF();
-  const tableColumn = ["Nume", "Sumă", "Categorie", "Data"];
+  const tableColumn = ["Name", "Amount", "Category", "Date"];
   const tableRows = [];
 
   expenses.forEach(exp => {
@@ -17,7 +17,7 @@ const exportPDF = (expenses) => {
     tableRows.push(expData);
   });
 
-  doc.text("Istoric Cheltuieli", 14, 15);
+  doc.text("Expense History", 14, 15);
   autoTable(doc, {
     head: [tableColumn],
     body: tableRows,

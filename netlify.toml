@@ -4,5 +4,7 @@
   status = 200
 
 [build]
+  command = "cd backend && npm install && cd ../frontend && npm install && npm run build"
   functions = "backend/netlify/functions"
-  publish = "build"
+  publish = "frontend/build"
+

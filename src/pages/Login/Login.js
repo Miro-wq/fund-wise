@@ -1,7 +1,14 @@
 import React, { useState, useContext } from 'react';
 import { ExpenseContext } from '../../context/ExpenseContext';
-import { useNavigate } from 'react-router-dom';
-import styles from '../Login/Login.module.css';
+import { useNavigate, Link } from 'react-router-dom';
+import {
+  Container,
+  Paper,
+  Typography,
+  TextField,
+  Button,
+  Box
+} from '@mui/material';
 
 function Login() {
   const { login } = useContext(ExpenseContext);
@@ -17,45 +24,66 @@ function Login() {
         navigate('/');
       })
       .catch(err => {
-        setError("Login eșuat");
+        setError("Login failed. Please check your credentials.");
       });
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.content}>
-      <h1 className={styles.intro}>Welcome to ExpenseTracker</h1>
-      <p className={styles.pLogin}>Sign in to your account or create a new one</p>
-      </div>
-      <div className={styles.formContainer}>
-      <h3 className={styles.h2}>Login</h3>
-      <p className={styles.p}>Enter your credentials to access your account</p>
-      <form onSubmit={handleLogin} className={styles.form}>
-        <label className={styles.label}>
-          Utilizator:
-          <input
-            type="text"
+    <Container maxWidth="sm">
+      <Typography variant="h4" align="center" gutterBottom>
+        Welcome to ExpenseTracker
+      </Typography>
+      <Typography variant="body1" align="center" color="textSecondary" gutterBottom>
+        Sign in to your account or create a new one
+      </Typography>
+      <Paper elevation={3} sx={{ p: 4, mt: 8 }}>
+        <Typography variant="h5" align="left" gutterBottom>
+          Login
+        </Typography>
+        <Typography variant="body1" align="left" color="textSecondary" gutterBottom>
+          Enter your credentials to access your account                </Typography>
+        <Box
+          component="form"
+          onSubmit={handleLogin}
+          sx={{
+            mt: 4,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 2
+          }}
+        >
+          <TextField
+            label="username"
+            variant="outlined"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            className={styles.input}
-            placeholder="Introdu numele de utilizator"
+            required
           />
-        </label>
-        <label>
-          Parolă:
-          <input
+          <TextField
+            label="password"
             type="password"
+            variant="outlined"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className={styles.input}
-            placeholder="Introdu parola"
+            required
           />
-        </label>
-        {error && <p className={styles.error}>{error}</p>}
-        <button type="submit" className={styles.button}>Logare</button>
-      </form>
-      </div>
-    </div>
+          {error && (
+            <Typography variant="body2" color="error">
+              {error}
+            </Typography>
+          )}
+          <Button type="submit" variant="contained" color="primary">
+            Login
+          </Button>
+        </Box>
+        <Typography variant="body2" align="center" sx={{ mt: 2 }}>
+          Don't have an account?{' '}
+          <Link to="/register" style={{ textDecoration: 'none', color: '#1976d2' }}>
+            Register
+          </Link>
+        </Typography>
+      </Paper>
+    </Container>
   );
 }
 

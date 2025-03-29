@@ -1,10 +1,19 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { ExpenseContext } from '../../context/ExpenseContext';
 import axios from 'axios';
-import styles from '../Home/Home.module.css';
+import {
+  Container,
+  Paper,
+  Typography,
+  TextField,
+  Button,
+  Box,
+  Grid
+} from '@mui/material';
 
 function Home() {
   const {
+    user,
     salary,
     extraIncome,
     token,
@@ -21,11 +30,11 @@ function Home() {
     phone,
   } = useContext(ExpenseContext);
 
-  //salariu și venit suplimentar
+  //state pentru salariu și venit suplimentar
   const [localSalary, setLocalSalary] = useState(salary || "");
   const [localExtraIncome, setLocalExtraIncome] = useState(extraIncome || "");
 
-  //stari pentru utilități
+  //state pentru utilități (valori locale înainte de a fi salvate)
   const [localRent, setLocalRent] = useState("");
   const [localWater, setLocalWater] = useState("");
   const [localGas, setLocalGas] = useState("");
@@ -34,11 +43,11 @@ function Home() {
   const [localTV, setLocalTV] = useState("");
   const [localPhone, setLocalPhone] = useState("");
 
-  //stări pentru cheltuieli noi
+  //state pentru noua cheltuială
   const [expenseName, setExpenseName] = useState("");
   const [expenseAmount, setExpenseAmount] = useState("");
 
-  //calcu total utilități
+  //calcularea totalului utilităților din context (cele salvate în DB)
   const totalUtilities =
     Number(rent) +
     Number(water) +
@@ -48,14 +57,11 @@ function Home() {
     Number(tv) +
     Number(phone);
 
-
   //venit net lunar = salariu - utilități + venit suplimentar
   const netIncome = Number(localSalary) - totalUtilities + Number(localExtraIncome);
-
-  //daily limit calculat pe baza venitului net
   const dailyLimit = netIncome / 30 || 0;
 
-  //totalul cheltuielilor din ziua curentă
+  //calcul total pt ziua curentă
   const today = new Date();
   const totalExpensesToday = expenses
     .filter(exp => {
@@ -74,7 +80,6 @@ function Home() {
     setLocalExtraIncome(extraIncome);
   }, [extraIncome]);
 
-  //notif dacă se depășește daily limit
   useEffect(() => {
     console.log('dailyLimit:', dailyLimit, 'totalExpensesToday:', totalExpensesToday);
     if (dailyLimit > 0 && totalExpensesToday > dailyLimit) {
@@ -86,7 +91,7 @@ function Home() {
     }
   }, [totalExpensesToday, dailyLimit]);
 
-  //salvează salariul și utilitățile în DB
+  //salveaz salariul și utilitățile în DB
   const handleSalarySubmit = (e) => {
     e.preventDefault();
     if (localSalary) {
@@ -104,7 +109,7 @@ function Home() {
         headers: { Authorization: `Bearer ${token}` },
       })
         .then(() => {
-          //actualizează contextul cu noile valori
+          //actualizează contextul după reset
           setSalary(localSalary);
           setExtraIncome(localExtraIncome);
         })
@@ -123,134 +128,152 @@ function Home() {
   };
 
   return (
-    <div className={styles.container}>
-      <h2>Expense Tracker</h2>
-      <form onSubmit={handleSalarySubmit} className={styles.salaryForm}>
-        <label>
-          Monthly income:
-          <input
+    <Container maxWidth="md" sx={{ mt: 4 }}>
+      <Typography variant="h6" align="center" gutterBottom>
+        Welcome, {user?.username}!
+      </Typography>
+
+      <Typography variant="h5" align="center" gutterBottom>
+        Monthly Overview
+      </Typography>
+
+      <Paper elevation={3} sx={{ p: 4, mb: 4 }}>
+        <Typography variant="h6" gutterBottom>
+          Set Monthly Income and Utilities
+        </Typography>
+        <Box component="form" onSubmit={handleSalarySubmit} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+          <TextField
+            label="Monthly Income"
             type="number"
+            variant="outlined"
             value={localSalary}
             onChange={(e) => setLocalSalary(e.target.value)}
-            placeholder="Enter your monthly income"
-            className={styles.input}
+            required
           />
-        </label>
-        {/* Dacă dorești, poți păstra sau afișa câmpul pentru additional income */}
-        {/* <label>
+
+          {/* <label>
           Additional income:
           <input
             type="number"
             value={localExtraIncome}
             onChange={(e) => setLocalExtraIncome(e.target.value)}
             placeholder="Enter your additional income"
-            className={styles.input}
+            className={styles.inputAditional}
           />
         </label> */}
-        <h3>Utilities (paid at the beginning of the month):</h3>
-        <label>
-          Rent:
-          <input
-            type="number"
-            value={localRent}
-            onChange={(e) => setLocalRent(e.target.value)}
-            placeholder="Rent"
-            className={styles.input}
-          />
-        </label>
-        <label>
-          Water:
-          <input
-            type="number"
-            value={localWater}
-            onChange={(e) => setLocalWater(e.target.value)}
-            placeholder="Water"
-            className={styles.input}
-          />
-        </label>
-        <label>
-          Gas:
-          <input
-            type="number"
-            value={localGas}
-            onChange={(e) => setLocalGas(e.target.value)}
-            placeholder="Gas"
-            className={styles.input}
-          />
-        </label>
-        <label>
-          Electricity:
-          <input
-            type="number"
-            value={localElectricity}
-            onChange={(e) => setLocalElectricity(e.target.value)}
-            placeholder="Electricity"
-            className={styles.input}
-          />
-        </label>
-        <label>
-          Internet:
-          <input
-            type="number"
-            value={localInternet}
-            onChange={(e) => setLocalInternet(e.target.value)}
-            placeholder="Internet"
-            className={styles.input}
-          />
-        </label>
-        <label>
-          TV:
-          <input
-            type="number"
-            value={localTV}
-            onChange={(e) => setLocalTV(e.target.value)}
-            placeholder="TV"
-            className={styles.input}
-          />
-        </label>
-        <label>
-          Phone:
-          <input
-            type="number"
-            value={localPhone}
-            onChange={(e) => setLocalPhone(e.target.value)}
-            placeholder="Phone"
-            className={styles.input}
-          />
-        </label>
-        <button type="submit" className={styles.button}>Save</button>
-      </form>
-      <div className={styles.limit}>
-        <h2>Daily limit: {localSalary ? dailyLimit.toFixed(2) : ""} RON</h2>
-        <p>Net monthly income: {localSalary ? netIncome.toFixed(2) : ""} RON</p>
-      </div>
-      <form onSubmit={handleAddExpense} className={styles.expenseForm}>
-        <label>
-          Expense:
-          <input
-            type="text"
+
+          <Typography variant="subtitle1" gutterBottom>
+            Utilities (paid at the beginning of the month)
+          </Typography>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                label="Rent"
+                type="number"
+                variant="outlined"
+                value={localRent}
+                onChange={(e) => setLocalRent(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                label="Water"
+                type="number"
+                variant="outlined"
+                value={localWater}
+                onChange={(e) => setLocalWater(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                label="Gas"
+                type="number"
+                variant="outlined"
+                value={localGas}
+                onChange={(e) => setLocalGas(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                label="Electricity"
+                type="number"
+                variant="outlined"
+                value={localElectricity}
+                onChange={(e) => setLocalElectricity(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                label="Internet"
+                type="number"
+                variant="outlined"
+                value={localInternet}
+                onChange={(e) => setLocalInternet(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                label="TV"
+                type="number"
+                variant="outlined"
+                value={localTV}
+                onChange={(e) => setLocalTV(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                label="Phone"
+                type="number"
+                variant="outlined"
+                value={localPhone}
+                onChange={(e) => setLocalPhone(e.target.value)}
+              />
+            </Grid>
+          </Grid>
+          <Button type="submit" variant="contained" color="primary">
+            Save
+          </Button>
+        </Box>
+      </Paper>
+
+      <Paper elevation={3} sx={{ p: 4, mb: 4 }}>
+        <Typography variant="h6">
+          Daily Limit: {localSalary ? dailyLimit.toFixed(2) : ""} RON
+        </Typography>
+        <Typography variant="subtitle1">
+          Net Monthly Income: {localSalary ? netIncome.toFixed(2) : ""} RON
+        </Typography>
+        <Typography variant="subtitle2">
+          Total Expenses for Today: {expenses.length > 0 ? totalExpensesToday : 0} RON
+        </Typography>
+      </Paper>
+
+      <Paper elevation={3} sx={{ p: 4 }}>
+        <Typography variant="h6" gutterBottom>
+          Add New Expense
+        </Typography>
+        <Box component="form" onSubmit={handleAddExpense} sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+          <TextField
+            label="Expense Name"
+            variant="outlined"
             value={expenseName}
             onChange={(e) => setExpenseName(e.target.value)}
-            placeholder="Insert expense"
-            className={styles.input}
+            required
           />
-        </label>
-        <label>
-          Amount:
-          <input
+          <TextField
+            label="Amount"
             type="number"
+            variant="outlined"
             value={expenseAmount}
             onChange={(e) => setExpenseAmount(e.target.value)}
-            placeholder="Insert amount"
-            className={styles.input}
+            required
           />
-        </label>
-        <button type="submit" className={styles.button}>Add Expense</button>
-      </form>
-      <div className={styles.total}>
-        <h3>Total expenses for today: {expenses.length > 0 ? totalExpensesToday : ""} RON</h3>
-      </div>
-    </div>
+          <Button type="submit" variant="contained" color="primary">
+            Add Expense
+          </Button>
+        </Box>
+      </Paper>
+    </Container>
   );
 }
 
