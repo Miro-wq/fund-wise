@@ -129,8 +129,8 @@ function Home() {
 
   return (
     <Container maxWidth="md" sx={{ mt: 4 }}>
-      <Typography variant="h6" align="center" gutterBottom>
-        Welcome, {user?.username}!
+      <Typography variant="h6" align="right" gutterBottom>
+        {user?.username}
       </Typography>
 
       <Typography variant="h5" align="center" gutterBottom>
@@ -138,6 +138,7 @@ function Home() {
       </Typography>
 
       <Paper elevation={3} sx={{ p: 4, mb: 4 }}>
+      <p style={{ color: 'rgb(255 0 0)' , marginBottom: '10px', background: '#f5f5f5', padding: '10px', textAlign: 'center', borderRadius: '5px' }}>Before insert new income, export your expenses in PDF format, in History</p>
         <Typography variant="h6" gutterBottom>
           Set Monthly Income and Utilities
         </Typography>
@@ -150,17 +151,9 @@ function Home() {
             onChange={(e) => setLocalSalary(e.target.value)}
             required
           />
+          <p style={{ color: 'rgb(255 0 0)', background: '#f5f5f5', padding: '10px', textAlign: 'center', borderRadius: '5px' }}>CAUTION! new income or extra income will reset all expenses and history!</p>
 
-          {/* <label>
-          Additional income:
-          <input
-            type="number"
-            value={localExtraIncome}
-            onChange={(e) => setLocalExtraIncome(e.target.value)}
-            placeholder="Enter your additional income"
-            className={styles.inputAditional}
-          />
-        </label> */}
+          <TextField label="Extra Income" type="number" variant="outlined" value={localExtraIncome} onChange={(e) => setLocalExtraIncome(e.target.value)} />
 
           <Typography variant="subtitle1" gutterBottom>
             Utilities (paid at the beginning of the month)
