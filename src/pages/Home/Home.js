@@ -138,7 +138,7 @@ function Home() {
       </Typography>
 
       <Paper elevation={3} sx={{ p: 4, mb: 4 }}>
-      <p style={{ color: 'rgb(255 0 0)' , marginBottom: '10px', background: '#f5f5f5', padding: '10px', textAlign: 'center', borderRadius: '5px' }}>Before insert new income, export your expenses in PDF format, in History</p>
+      <p style={{ color: 'rgb(255 0 0)' , marginBottom: '10px', background: '#f5f5f5', padding: '10px', textAlign: 'center', borderRadius: '5px' }}>Before inserting new income, please export your expenses as a PDF from the History page.</p>
         <Typography variant="h6" gutterBottom>
           Set Monthly Income and Utilities
         </Typography>
