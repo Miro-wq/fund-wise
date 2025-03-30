@@ -89,6 +89,7 @@ export const ExpenseProvider = ({ children }) => {
         extraIncome,
         expenses,
         user,
+        setUser,
         token,
         rent,
         water,

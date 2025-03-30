@@ -55,7 +55,7 @@ app.post('/api/register', async (req, res) => {
     //verifică dacă utilizatorul există deja
     const existingUser = await User.findOne({ username });
     if (existingUser) {
-      return res.status(400).json({ message: 'Utilizatorul există deja' });
+      return res.status(400).json({ message: 'Username already exists' });
     }
     //creează un nou utilizator
     const newUser = new User({ username, password });
@@ -64,7 +64,7 @@ app.post('/api/register', async (req, res) => {
     const token = jwt.sign({ id: newUser._id, username: newUser.username }, JWT_SECRET, { expiresIn: '1d' });
     res.json({ token, user: newUser });
   } catch (err) {
-    res.status(500).json({ message: 'Eroare pe server' });
+    res.status(500).json({ message: 'Server error' });
   }
 });
 
