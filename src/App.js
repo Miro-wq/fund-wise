@@ -13,10 +13,10 @@ import { CssBaseline, AppBar, Toolbar, Typography, Button, Box } from '@mui/mate
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#1976d2', // Albastru MUI
+      main: '#1976d2', //albastru MUI
     },
     secondary: {
-      main: '#9c27b0', // Mov MUI
+      main: '#9c27b0',
     },
   },
 });
