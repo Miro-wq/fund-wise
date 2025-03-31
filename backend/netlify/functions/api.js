@@ -82,7 +82,8 @@ app.get('/api/data', authMiddleware, async (req, res) => {
       internet: user.internet,
       tv: user.tv,
       phone: user.phone,
-      expenses: user.expenses 
+      expenses: user.expenses,
+      user: { username: user.username }
     });
   } catch (err) {
     res.status(500).json({ message: 'Server error' });

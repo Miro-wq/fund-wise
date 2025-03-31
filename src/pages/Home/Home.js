@@ -138,7 +138,7 @@ function Home() {
       </Typography>
 
       <Paper elevation={3} sx={{ p: 4, mb: 4 }}>
-      <p style={{ color: 'rgb(255 0 0)' , marginBottom: '10px', background: '#f5f5f5', padding: '10px', textAlign: 'center', borderRadius: '5px' }}>Before inserting new income, please export your expenses as a PDF from the History page.</p>
+        <p style={{ color: 'rgb(255 0 0)', marginBottom: '10px', background: '#f5f5f5', padding: '10px', textAlign: 'center', borderRadius: '5px' }}>Before inserting new income, please export your expenses as a PDF from the History page.</p>
         <Typography variant="h6" gutterBottom>
           Set Monthly Income and Utilities
         </Typography>
@@ -175,6 +175,7 @@ function Home() {
                 variant="outlined"
                 value={localWater}
                 onChange={(e) => setLocalWater(e.target.value)}
+                fullWidth
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -184,6 +185,7 @@ function Home() {
                 variant="outlined"
                 value={localGas}
                 onChange={(e) => setLocalGas(e.target.value)}
+                fullWidth
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -193,6 +195,7 @@ function Home() {
                 variant="outlined"
                 value={localElectricity}
                 onChange={(e) => setLocalElectricity(e.target.value)}
+                fullWidth
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -202,6 +205,7 @@ function Home() {
                 variant="outlined"
                 value={localInternet}
                 onChange={(e) => setLocalInternet(e.target.value)}
+                fullWidth
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -211,6 +215,7 @@ function Home() {
                 variant="outlined"
                 value={localTV}
                 onChange={(e) => setLocalTV(e.target.value)}
+                fullWidth
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -220,6 +225,7 @@ function Home() {
                 variant="outlined"
                 value={localPhone}
                 onChange={(e) => setLocalPhone(e.target.value)}
+                fullWidth
               />
             </Grid>
           </Grid>
@@ -241,7 +247,7 @@ function Home() {
         </Typography>
       </Paper>
 
-      <Paper elevation={3} sx={{ p: 4 }}>
+      <Paper elevation={3} sx={{ p: 4, mb: 3 }}>
         <Typography variant="h6" gutterBottom>
           Add New Expense
         </Typography>

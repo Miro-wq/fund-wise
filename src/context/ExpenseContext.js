@@ -35,6 +35,7 @@ export const ExpenseProvider = ({ children }) => {
           setInternet(res.data.internet);
           setTV(res.data.tv);
           setPhone(res.data.phone);
+          setUser(res.data.user);
         })
         .catch((err) => console.error(err));
     }
