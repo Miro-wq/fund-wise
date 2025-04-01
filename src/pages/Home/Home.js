@@ -8,7 +8,7 @@ import {
   TextField,
   Button,
   Box,
-  Grid, Dialog,
+  Dialog,
   DialogTitle,
   DialogContent,
   DialogActions
