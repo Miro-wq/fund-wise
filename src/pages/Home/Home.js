@@ -124,7 +124,6 @@ function Home() {
   };
 
   const handleSaveUtilities = () => {
-    // Poți apela un API pentru a salva aceste date în DB:
     axios.post('/api/reset', {
       salary: localSalary,
       extraIncome: localExtraIncome,
@@ -139,10 +138,8 @@ function Home() {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then(() => {
-        // Actualizează contextul dacă este nevoie
         setSalary(localSalary);
         setExtraIncome(localExtraIncome);
-        // În mod ideal, backend-ul va actualiza și valorile pentru utilități (rent, water, etc.)
         setOpenUtilitiesModal(false);
       })
       .catch(err => console.error(err));
