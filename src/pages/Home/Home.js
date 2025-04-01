@@ -128,151 +128,168 @@ function Home() {
   };
 
   return (
-    <Container maxWidth="md" sx={{ mt: 4 }}>
-      <Typography variant="h6" align="right" gutterBottom>
-        {user?.username}
+    <>
+      <Typography variant="h6" align="right" gutterBottom sx={{ mb: 0, pr: 3 }}>
+        Signed in as: {user?.username}
       </Typography>
+      <Container maxWidth={false} sx={{
+              mt: 2,
+              display: 'flex',
+              flexDirection: { xs: 'column', md: 'row' },
+            }}
+            >
+        <Box sx={{ mr: { xs: 0, md: 3 } }}>
+          <Paper elevation={3} sx={{ p: 4, mb: 3 }}>
+            <Typography variant="h5" align="left" gutterBottom>
+              Monthly Overview
+            </Typography>
 
-      <Typography variant="h5" align="center" gutterBottom>
-        Monthly Overview
-      </Typography>
+            <p style={{ color: 'rgb(255 0 0)', marginBottom: '10px', background: '#f5f5f5', padding: '10px', textAlign: 'center', borderRadius: '5px' }}>Before inserting new income, please export your expenses as a PDF from the History page.</p>
 
-      <Paper elevation={3} sx={{ p: 4, mb: 4 }}>
-        <p style={{ color: 'rgb(255 0 0)', marginBottom: '10px', background: '#f5f5f5', padding: '10px', textAlign: 'center', borderRadius: '5px' }}>Before inserting new income, please export your expenses as a PDF from the History page.</p>
-        <Typography variant="h6" gutterBottom>
-          Set Monthly Income and Utilities
-        </Typography>
-        <Box component="form" onSubmit={handleSalarySubmit} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-          <TextField
-            label="Monthly Income"
-            type="number"
-            variant="outlined"
-            value={localSalary}
-            onChange={(e) => setLocalSalary(e.target.value)}
-            required
-          />
-          <p style={{ color: 'rgb(255 0 0)', background: '#f5f5f5', padding: '10px', textAlign: 'center', borderRadius: '5px' }}>CAUTION! new income or extra income will reset all expenses and history!</p>
+            <Typography variant="h6" gutterBottom>
+              Set Monthly Income and Utilities
+            </Typography>
 
-          <TextField label="Extra Income" type="number" variant="outlined" value={localExtraIncome} onChange={(e) => setLocalExtraIncome(e.target.value)} />
+            <Box component="form" onSubmit={handleSalarySubmit} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+              <TextField
+                label="Monthly Income"
+                type="number"
+                variant="outlined"
+                value={localSalary}
+                onChange={(e) => setLocalSalary(e.target.value)}
+                required
+              />
 
-          <Typography variant="subtitle1" gutterBottom>
-            Utilities (paid at the beginning of the month)
-          </Typography>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                label="Rent"
-                type="number"
-                variant="outlined"
-                value={localRent}
-                onChange={(e) => setLocalRent(e.target.value)}
-              />
+              <p style={{ color: 'rgb(255 0 0)', background: '#f5f5f5', padding: '10px', textAlign: 'center', borderRadius: '5px' }}>CAUTION! new income or extra income will reset all expenses and history!</p>
+
+              <TextField label="Extra Income" type="number" variant="outlined" value={localExtraIncome} onChange={(e) => setLocalExtraIncome(e.target.value)} />
+            </Box>
+          </Paper>
+
+
+          <Paper elevation={3} sx={{ p: 4, mb: 3 }}>
+            <Typography variant="subtitle1" gutterBottom>
+              Utilities (paid at the beginning of the month)
+            </Typography>
+            <Grid container spacing={2}>
+              <Grid size={{ xs: 12, sm: 6 }}>
+                <TextField
+                  label="Rent"
+                  type="number"
+                  variant="outlined"
+                  value={localRent}
+                  onChange={(e) => setLocalRent(e.target.value)}
+                  fullWidth
+                />
+              </Grid>
+              <Grid size={{ xs: 12, sm: 6 }}>
+                <TextField
+                  label="Water"
+                  type="number"
+                  variant="outlined"
+                  value={localWater}
+                  onChange={(e) => setLocalWater(e.target.value)}
+                  fullWidth
+                />
+              </Grid>
+              <Grid size={{ xs: 12, sm: 6 }}>
+                <TextField
+                  label="Gas"
+                  type="number"
+                  variant="outlined"
+                  value={localGas}
+                  onChange={(e) => setLocalGas(e.target.value)}
+                  fullWidth
+                />
+              </Grid>
+              <Grid size={{ xs: 12, sm: 6 }}>
+                <TextField
+                  label="Electricity"
+                  type="number"
+                  variant="outlined"
+                  value={localElectricity}
+                  onChange={(e) => setLocalElectricity(e.target.value)}
+                  fullWidth
+                />
+              </Grid>
+              <Grid size={{ xs: 12, sm: 6 }}>
+                <TextField
+                  label="Internet"
+                  type="number"
+                  variant="outlined"
+                  value={localInternet}
+                  onChange={(e) => setLocalInternet(e.target.value)}
+                  fullWidth
+                />
+              </Grid>
+              <Grid size={{ xs: 12, sm: 6 }}>
+                <TextField
+                  label="TV"
+                  type="number"
+                  variant="outlined"
+                  value={localTV}
+                  onChange={(e) => setLocalTV(e.target.value)}
+                  fullWidth
+                />
+              </Grid>
+              <Grid size={{ xs: 12, sm: 6 }}>
+                <TextField
+                  label="Phone"
+                  type="number"
+                  variant="outlined"
+                  value={localPhone}
+                  onChange={(e) => setLocalPhone(e.target.value)}
+                  fullWidth
+                />
+              </Grid>
             </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                label="Water"
-                type="number"
-                variant="outlined"
-                value={localWater}
-                onChange={(e) => setLocalWater(e.target.value)}
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                label="Gas"
-                type="number"
-                variant="outlined"
-                value={localGas}
-                onChange={(e) => setLocalGas(e.target.value)}
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                label="Electricity"
-                type="number"
-                variant="outlined"
-                value={localElectricity}
-                onChange={(e) => setLocalElectricity(e.target.value)}
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                label="Internet"
-                type="number"
-                variant="outlined"
-                value={localInternet}
-                onChange={(e) => setLocalInternet(e.target.value)}
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                label="TV"
-                type="number"
-                variant="outlined"
-                value={localTV}
-                onChange={(e) => setLocalTV(e.target.value)}
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                label="Phone"
-                type="number"
-                variant="outlined"
-                value={localPhone}
-                onChange={(e) => setLocalPhone(e.target.value)}
-                fullWidth
-              />
-            </Grid>
-          </Grid>
-          <Button type="submit" variant="contained" color="primary">
-            Save
-          </Button>
+            <Button type="submit" variant="contained" sx={{ mt: 2 }}color="primary">
+              Save
+            </Button>
+          </Paper>
         </Box>
-      </Paper>
 
-      <Paper elevation={3} sx={{ p: 4, mb: 4 }}>
-        <Typography variant="h6">
-          Daily Limit: {localSalary ? dailyLimit.toFixed(2) : ""} RON
-        </Typography>
-        <Typography variant="subtitle1">
-          Net Monthly Income: {localSalary ? netIncome.toFixed(2) : ""} RON
-        </Typography>
-        <Typography variant="subtitle2">
-          Total Expenses for Today: {expenses.length > 0 ? totalExpensesToday : 0} RON
-        </Typography>
-      </Paper>
+        <Box>
+          <Paper elevation={3} sx={{ p: 4, mb: 3 }}>
+            <Typography variant="h6">
+              Daily Limit: {localSalary ? dailyLimit.toFixed(2) : ""} RON
+            </Typography>
+            <Typography variant="subtitle1">
+              Net Monthly Income: {localSalary ? netIncome.toFixed(2) : ""} RON
+            </Typography>
+            <Typography variant="subtitle2">
+              Total Expenses for Today: {expenses.length > 0 ? totalExpensesToday : 0} RON
+            </Typography>
+          </Paper>
 
-      <Paper elevation={3} sx={{ p: 4, mb: 3 }}>
-        <Typography variant="h6" gutterBottom>
-          Add New Expense
-        </Typography>
-        <Box component="form" onSubmit={handleAddExpense} sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
-          <TextField
-            label="Expense Name"
-            variant="outlined"
-            value={expenseName}
-            onChange={(e) => setExpenseName(e.target.value)}
-            required
-          />
-          <TextField
-            label="Amount"
-            type="number"
-            variant="outlined"
-            value={expenseAmount}
-            onChange={(e) => setExpenseAmount(e.target.value)}
-            required
-          />
-          <Button type="submit" variant="contained" color="primary">
-            Add Expense
-          </Button>
+          <Paper elevation={3} sx={{ p: 4, mb: 3 }}>
+            <Typography variant="h6" gutterBottom>
+              Add New Expense
+            </Typography>
+            <Box component="form" onSubmit={handleAddExpense} sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+              <TextField
+                label="Expense Name"
+                variant="outlined"
+                value={expenseName}
+                onChange={(e) => setExpenseName(e.target.value)}
+                required
+              />
+              <TextField
+                label="Amount"
+                type="number"
+                variant="outlined"
+                value={expenseAmount}
+                onChange={(e) => setExpenseAmount(e.target.value)}
+                required
+              />
+              <Button type="submit" variant="contained" color="primary">
+                Add Expense
+              </Button>
+            </Box>
+          </Paper>
         </Box>
-      </Paper>
-    </Container>
+      </Container>
+    </>
   );
 }
 

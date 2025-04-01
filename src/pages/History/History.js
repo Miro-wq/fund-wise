@@ -82,7 +82,7 @@ function History() {
   return (
     <>
       <Typography variant="h6" align="right" gutterBottom sx={{ mb: 0, pr: 3 }}>
-        {user?.username}
+        Signed in as: {user?.username}
       </Typography>
       <Container maxWidth={false} sx={{
         mt: 2,
