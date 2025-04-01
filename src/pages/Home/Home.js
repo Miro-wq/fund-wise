@@ -8,7 +8,10 @@ import {
   TextField,
   Button,
   Box,
-  Grid
+  Grid, Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions
 } from '@mui/material';
 
 function Home() {
@@ -80,16 +83,13 @@ function Home() {
     setLocalExtraIncome(extraIncome);
   }, [extraIncome]);
 
+  const [openModal, setOpenModal] = useState(false);
+
   useEffect(() => {
-    console.log('dailyLimit:', dailyLimit, 'totalExpensesToday:', totalExpensesToday);
     if (dailyLimit > 0 && totalExpensesToday > dailyLimit) {
-      if (Notification.permission === 'granted') {
-        new Notification('Ai depășit limita zilnică de cheltuieli!');
-      } else {
-        console.log('Notificările nu sunt permise.');
-      }
+      setOpenModal(true);
     }
-  }, [totalExpensesToday, dailyLimit]);
+  }, [dailyLimit, totalExpensesToday]);
 
   //salveaz salariul și utilitățile în DB
   const handleSalarySubmit = (e) => {
@@ -129,15 +129,15 @@ function Home() {
 
   return (
     <>
-      <Typography variant="h6" align="right" gutterBottom sx={{ mb: 0, pr: 3 }}>
+      <Typography variant="subtitle1" align="right" gutterBottom sx={{ mb: 0, pr: 3 }}>
         Signed in as: {user?.username}
       </Typography>
       <Container maxWidth={false} sx={{
-              mt: 2,
-              display: 'flex',
-              flexDirection: { xs: 'column', md: 'row' },
-            }}
-            >
+        mt: 2,
+        display: 'flex',
+        flexDirection: { xs: 'column', md: 'row' },
+      }}
+      >
         <Box sx={{ mr: { xs: 0, md: 3 } }}>
           <Paper elevation={3} sx={{ p: 4, mb: 3 }}>
             <Typography variant="h5" align="left" gutterBottom>
@@ -243,7 +243,7 @@ function Home() {
                 />
               </Grid>
             </Grid>
-            <Button type="submit" variant="contained" sx={{ mt: 2 }}color="primary">
+            <Button type="submit" variant="contained" sx={{ mt: 2 }} color="primary">
               Save
             </Button>
           </Paper>
@@ -288,6 +288,20 @@ function Home() {
             </Box>
           </Paper>
         </Box>
+
+        <Dialog open={openModal} onClose={() => setOpenModal(false)}>
+          <DialogTitle>Daily limit exceeded</DialogTitle>
+          <DialogContent>
+            <Typography>
+              You've exceeded your daily spending limit! Please review your expenses.
+            </Typography>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => setOpenModal(false)} color="primary">
+              Close
+            </Button>
+          </DialogActions>
+        </Dialog>
       </Container>
     </>
   );

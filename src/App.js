@@ -1,4 +1,3 @@
-// App.js
 import React, { useContext } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, Link } from 'react-router-dom';
 import { ExpenseProvider, ExpenseContext } from '../src/context/ExpenseContext';
@@ -6,20 +5,10 @@ import Home from '../src/pages/Home/Home';
 import History from '../src/pages/History/History';
 import Login from '../src/pages/Login/Login';
 import Register from '../src/pages/Register/Register';
-
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import theme from '../src/components/CreateTheme'; 
+import { ThemeProvider } from '@mui/material/styles';
 import { CssBaseline, AppBar, Toolbar, Typography, Button, Box } from '@mui/material';
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#1976d2', //albastru MUI
-    },
-    secondary: {
-      main: '#9c27b0',
-    },
-  },
-});
 
 const PrivateRoute = ({ children }) => {
   const { token } = useContext(ExpenseContext);
