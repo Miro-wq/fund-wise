@@ -13,6 +13,7 @@ import {
   DialogContent,
   DialogActions
 } from '@mui/material';
+import UtilitiesModal from '../../components/UtilitiesModal';
 
 function Home() {
   const {
@@ -50,18 +51,23 @@ function Home() {
   const [expenseName, setExpenseName] = useState("");
   const [expenseAmount, setExpenseAmount] = useState("");
 
+  const [openUtilitiesModal, setOpenUtilitiesModal] = useState(false);
+
   //calcularea totalului utilităților din context (cele salvate în DB)
-  const totalUtilities =
-    Number(rent) +
-    Number(water) +
-    Number(gas) +
-    Number(electricity) +
-    Number(internet) +
-    Number(tv) +
-    Number(phone);
+  // const totalUtilities =
+  //   Number(rent) +
+  //   Number(water) +
+  //   Number(gas) +
+  //   Number(electricity) +
+  //   Number(internet) +
+  //   Number(tv) +
+  //   Number(phone);
 
   //venit net lunar = salariu - utilități + venit suplimentar
-  const netIncome = Number(localSalary) - totalUtilities + Number(localExtraIncome);
+  // const netIncome = Number(localSalary) - totalUtilities + Number(localExtraIncome);
+  
+  //venit net lunar = salariu + venit suplimentar (fără utilități)
+  const netIncome = Number(localSalary) + Number(localExtraIncome);
   const dailyLimit = netIncome / 30 || 0;
 
   //calcul total pt ziua curentă
@@ -115,6 +121,31 @@ function Home() {
         })
         .catch(err => console.error(err));
     }
+  };
+
+  const handleSaveUtilities = () => {
+    // Poți apela un API pentru a salva aceste date în DB:
+    axios.post('/api/reset', {
+      salary: localSalary,
+      extraIncome: localExtraIncome,
+      rent: localRent,
+      water: localWater,
+      gas: localGas,
+      electricity: localElectricity,
+      internet: localInternet,
+      tv: localTV,
+      phone: localPhone,
+    }, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then(() => {
+        // Actualizează contextul dacă este nevoie
+        setSalary(localSalary);
+        setExtraIncome(localExtraIncome);
+        // În mod ideal, backend-ul va actualiza și valorile pentru utilități (rent, water, etc.)
+        setOpenUtilitiesModal(false);
+      })
+      .catch(err => console.error(err));
   };
 
   //adaugă o cheltuială nouă
@@ -171,78 +202,28 @@ function Home() {
             <Typography variant="subtitle1" gutterBottom>
               Utilities (paid at the beginning of the month)
             </Typography>
-            <Grid container spacing={2}>
-              <Grid size={{ xs: 12, sm: 6 }}>
-                <TextField
-                  label="Rent"
-                  type="number"
-                  variant="outlined"
-                  value={localRent}
-                  onChange={(e) => setLocalRent(e.target.value)}
-                  fullWidth
-                />
-              </Grid>
-              <Grid size={{ xs: 12, sm: 6 }}>
-                <TextField
-                  label="Water"
-                  type="number"
-                  variant="outlined"
-                  value={localWater}
-                  onChange={(e) => setLocalWater(e.target.value)}
-                  fullWidth
-                />
-              </Grid>
-              <Grid size={{ xs: 12, sm: 6 }}>
-                <TextField
-                  label="Gas"
-                  type="number"
-                  variant="outlined"
-                  value={localGas}
-                  onChange={(e) => setLocalGas(e.target.value)}
-                  fullWidth
-                />
-              </Grid>
-              <Grid size={{ xs: 12, sm: 6 }}>
-                <TextField
-                  label="Electricity"
-                  type="number"
-                  variant="outlined"
-                  value={localElectricity}
-                  onChange={(e) => setLocalElectricity(e.target.value)}
-                  fullWidth
-                />
-              </Grid>
-              <Grid size={{ xs: 12, sm: 6 }}>
-                <TextField
-                  label="Internet"
-                  type="number"
-                  variant="outlined"
-                  value={localInternet}
-                  onChange={(e) => setLocalInternet(e.target.value)}
-                  fullWidth
-                />
-              </Grid>
-              <Grid size={{ xs: 12, sm: 6 }}>
-                <TextField
-                  label="TV"
-                  type="number"
-                  variant="outlined"
-                  value={localTV}
-                  onChange={(e) => setLocalTV(e.target.value)}
-                  fullWidth
-                />
-              </Grid>
-              <Grid size={{ xs: 12, sm: 6 }}>
-                <TextField
-                  label="Phone"
-                  type="number"
-                  variant="outlined"
-                  value={localPhone}
-                  onChange={(e) => setLocalPhone(e.target.value)}
-                  fullWidth
-                />
-              </Grid>
-            </Grid>
+            
+        <Box component="form" onSubmit={() => {}} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+          <Button
+            variant="outlined"
+            onClick={() => setOpenUtilitiesModal(true)}
+          >
+            Click to add monthly utilities
+          </Button>
+          {/* Afișează utilitățile introduse (dacă există) */}
+          {rent || water || gas || electricity || internet || tv || phone ? (
+            <Box sx={{ mt: 2 }}>
+              <Typography variant="body1">
+                Utilities: Rent: {rent}, Water: {water}, Gas: {gas}, Electricity: {electricity}, Internet: {internet}, TV: {tv}, Phone: {phone}
+              </Typography>
+            </Box>
+          ) : null}
+          <Button type="submit" variant="contained" color="primary">
+            Save Income & Utilities
+          </Button>
+        </Box>
+
+
             <Button type="submit" variant="contained" sx={{ mt: 2 }} color="primary">
               Save
             </Button>
@@ -302,6 +283,25 @@ function Home() {
             </Button>
           </DialogActions>
         </Dialog>
+        <UtilitiesModal
+        open={openUtilitiesModal}
+        onClose={() => setOpenUtilitiesModal(false)}
+        onSave={handleSaveUtilities}
+        localRent={localRent}
+        setLocalRent={setLocalRent}
+        localWater={localWater}
+        setLocalWater={setLocalWater}
+        localGas={localGas}
+        setLocalGas={setLocalGas}
+        localElectricity={localElectricity}
+        setLocalElectricity={setLocalElectricity}
+        localInternet={localInternet}
+        setLocalInternet={setLocalInternet}
+        localTV={localTV}
+        setLocalTV={setLocalTV}
+        localPhone={localPhone}
+        setLocalPhone={setLocalPhone}
+      />
       </Container>
     </>
   );
