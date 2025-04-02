@@ -201,78 +201,79 @@ function History() {
           </Paper>
         </Box>
 
-        {expenses.length === 0 ? (
-          <Typography variant="body1">
-            No expense data available. Please add some expenses to see the history.
-          </Typography>
-        ) : (
-          <>
-            <Box>
-              <Paper elevation={3} sx={{
-                mt: { xs: 0, md: 0 },
-                p: 2, mb: 3
-              }}>
-                <Box sx={{ mb: 3, display: 'flex', flexDirection: 'column' }}>
-                  <Typography variant="h6" gutterBottom sx={{ mb: 3 }}>
-                    Calendar View
-                  </Typography>
-                  <Calendar bordered
-                    value={selectedDate}
-                    onChange={setSelectedDate}
-                  />
-                </Box>
-              </Paper>
-
-              {filteredExpenses.length === 0 ? (
-                <Typography variant="body1">
-                  No expense data available.
-                </Typography>
-              ) : (
-                <Paper elevation={3} sx={{ p: 2, mb: 3 }}>
-                  <Typography variant="subtitle1" gutterBottom sx={{ mb: 2, fontWeight: 'bold' }}>
-                    Expense Entries
-                  </Typography>
-
-                  <TableContainer component={Paper} sx={{
-                    overflowX: { xs: 'auto', md: 'unset' },
-                    overflowY: { xs: 'unset', md: 'auto' },
-                    maxHeight: { xs: 'unset', md: '11em' }
-                  }}
-                  >
-                    <Table>
-                      <TableHead>
-                        <TableRow>
-                          <TableCell>Name</TableCell>
-                          <TableCell>Amount (RON)</TableCell>
-                          <TableCell>Category</TableCell>
-                          <TableCell>Date</TableCell>
-                        </TableRow>
-                      </TableHead>
-                      <TableBody>
-                        {filteredExpenses.map((exp, index) => {
-                          const expDate = new Date(exp.date);
-                          return (
-                            <TableRow key={index}>
-                              <TableCell>{exp.name}</TableCell>
-                              <TableCell>{exp.amount}</TableCell>
-                              <TableCell>{exp.category || "-"}</TableCell>
-                              <TableCell>
-                                {`${expDate.toLocaleDateString()} ${expDate.toLocaleTimeString()}`}
-                              </TableCell>
-                            </TableRow>
-                          );
-                        })}
-                      </TableBody>
-                    </Table>
-                  </TableContainer>
-                </Paper>
-              )}
+        <Box>
+          <Paper elevation={3} sx={{
+            mt: { xs: 0, md: 0 },
+            p: 2, mb: 3
+          }}>
+            <Box sx={{ mb: 3, display: 'flex', flexDirection: 'column' }}>
+              <Typography variant="h6" gutterBottom sx={{ mb: 3 }}>
+                Calendar View
+              </Typography>
+              <Calendar bordered
+                value={selectedDate}
+                onChange={setSelectedDate}
+              />
             </Box>
-          </>
-        )}
+          </Paper>
+
+          {expenses.length === 0 ? (
+            <Paper elevation={3} sx={{ p: 2, mb: 3 }}>
+            <Typography variant="body1" sx={{ textAlign: 'center' }}>
+              No expense data available. Please add some expenses to see the history.
+            </Typography>
+            </Paper>
+          ) : (
+            filteredExpenses.length === 0 ? (
+              <Paper elevation={3} sx={{ p: 2, mb: 3 }}>
+              <Typography variant="body1" sx={{ textAlign: 'center' }}>
+                No expense data available.
+              </Typography>
+              </Paper>
+            ) : (
+              <Paper elevation={3} sx={{ p: 2, mb: 3 }}>
+                <Typography variant="subtitle1" gutterBottom sx={{ mb: 2, fontWeight: 'bold' }}>
+                  Expense Entries
+                </Typography>
+
+                <TableContainer component={Paper} sx={{
+                  overflowX: { xs: 'auto', md: 'unset' },
+                  overflowY: { xs: 'unset', md: 'auto' },
+                  maxHeight: { xs: 'unset', md: '11em' }
+                }}
+                >
+                  <Table>
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>Name</TableCell>
+                        <TableCell>Amount (RON)</TableCell>
+                        <TableCell>Category</TableCell>
+                        <TableCell>Date</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {filteredExpenses.map((exp, index) => {
+                        const expDate = new Date(exp.date);
+                        return (
+                          <TableRow key={index}>
+                            <TableCell>{exp.name}</TableCell>
+                            <TableCell>{exp.amount}</TableCell>
+                            <TableCell>{exp.category || "-"}</TableCell>
+                            <TableCell>
+                              {`${expDate.toLocaleDateString()} ${expDate.toLocaleTimeString()}`}
+                            </TableCell>
+                          </TableRow>
+                        );
+                      })}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              </Paper>
+            )
+          )}
+        </Box>
       </Container>
     </>
   );
 }
-
 export default History;
