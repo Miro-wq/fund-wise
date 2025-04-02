@@ -81,10 +81,10 @@ function History() {
 
   return (
     <>
-      <Typography variant="h6" align="right" gutterBottom sx={{ mb: 0, pr: 3 }}>
+      <Typography variant="subtitle1" align="right" gutterBottom sx={{ mb: 0, pr: 3, borderBottom: '2px solid #f5f5f5' }}>
         Signed in as: {user?.username}
       </Typography>
-      <Container maxWidth={false} sx={{
+      <Container sx={{
         mt: 2,
         display: 'flex',
         flexDirection: { xs: 'column', md: 'row' },

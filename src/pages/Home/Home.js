@@ -14,6 +14,7 @@ import {
   DialogActions
 } from '@mui/material';
 import UtilitiesModal from '../../components/UtilitiesModal';
+import DailyLimitProgress from '../../components/DailyLimitProgress';
 
 function Home() {
   const {
@@ -54,20 +55,17 @@ function Home() {
   const [openUtilitiesModal, setOpenUtilitiesModal] = useState(false);
 
   //calcularea totalului utilităților din context (cele salvate în DB)
-  // const totalUtilities =
-  //   Number(rent) +
-  //   Number(water) +
-  //   Number(gas) +
-  //   Number(electricity) +
-  //   Number(internet) +
-  //   Number(tv) +
-  //   Number(phone);
+  const totalUtilities =
+    Number(rent) +
+    Number(water) +
+    Number(gas) +
+    Number(electricity) +
+    Number(internet) +
+    Number(tv) +
+    Number(phone);
 
   //venit net lunar = salariu - utilități + venit suplimentar
-  // const netIncome = Number(localSalary) - totalUtilities + Number(localExtraIncome);
-  
-  //venit net lunar = salariu + venit suplimentar (fără utilități)
-  const netIncome = Number(localSalary) + Number(localExtraIncome);
+  const netIncome = Number(localSalary) - totalUtilities + Number(localExtraIncome);
   const dailyLimit = netIncome / 30 || 0;
 
   //calcul total pt ziua curentă
@@ -92,10 +90,18 @@ function Home() {
   const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
-    if (dailyLimit > 0 && totalExpensesToday > dailyLimit) {
+    const dismissedDate = localStorage.getItem("limitModalDismissed");
+    const todayStr = new Date().toDateString();
+    if (dailyLimit > 0 && totalExpensesToday > dailyLimit && dismissedDate !== todayStr) {
       setOpenModal(true);
     }
   }, [dailyLimit, totalExpensesToday]);
+
+  const handleDismissForToday = () => {
+    const todayStr = new Date().toDateString();
+    localStorage.setItem("limitModalDismissed", todayStr);
+    setOpenModal(false);
+  };
 
   //salveaz salariul și utilitățile în DB
   const handleSalarySubmit = (e) => {
@@ -157,10 +163,10 @@ function Home() {
 
   return (
     <>
-      <Typography variant="subtitle1" align="right" gutterBottom sx={{ mb: 0, pr: 3 }}>
+      <Typography variant="subtitle1" align="right" gutterBottom sx={{ mb: 0, pr: 3, borderBottom: '2px solid #f5f5f5' }}>
         Signed in as: {user?.username}
       </Typography>
-      <Container maxWidth={false} sx={{
+      <Container sx={{
         mt: 2,
         display: 'flex',
         flexDirection: { xs: 'column', md: 'row' },
@@ -172,6 +178,34 @@ function Home() {
               Monthly Overview
             </Typography>
 
+            <Box sx={{
+              display: 'flex',
+              justifyContent: 'space-around',
+              gap: { xs: '0', md: '32px' },
+              flexDirection: { xs: 'column', md: 'row' },
+            }}>
+              <Typography variant="subtitle1" sx={{ m: 0, fontWeight: 'bold', background: 'rgb(239 246 255)', padding: '1rem', textAlign: 'center', borderRadius: '5px', mt: 2 }}>
+                Net Monthly Income: {localSalary ? netIncome.toFixed(2) : ""} RON
+              </Typography>
+
+              <Typography variant="subtitle1" sx={{ m: 0, fontWeight: 'bold', background: 'rgb(254 242 242)', padding: '1rem', textAlign: 'center', borderRadius: '5px', mt: 2 }}>
+                Expenses for Today: {expenses.length > 0 ? totalExpensesToday : 0} RON
+              </Typography>
+
+              <Typography variant="subtitle1" sx={{ m: 0, fontWeight: 'bold', background: 'rgb(240 253 244)', padding: '1rem', textAlign: 'center', borderRadius: '5px', mt: 2 }}>
+                Daily Limit: {localSalary ? dailyLimit.toFixed(2) : ""} RON
+              </Typography>
+            </Box>
+          </Paper>
+
+          <Paper elevation={3} sx={{ p: 4, mb: 3 }}>
+            <DailyLimitProgress
+              currentExpense={totalExpensesToday}
+              dailyLimit={dailyLimit}
+            />
+          </Paper>
+
+          <Paper elevation={3} sx={{ p: 4, mb: 3 }}>
             <p style={{ color: 'rgb(255 0 0)', marginBottom: '10px', background: '#f5f5f5', padding: '10px', textAlign: 'center', borderRadius: '5px' }}>Before inserting new income, please export your expenses as a PDF from the History page.</p>
 
             <Typography variant="h6" gutterBottom>
@@ -193,78 +227,103 @@ function Home() {
               <TextField label="Extra Income" type="number" variant="outlined" value={localExtraIncome} onChange={(e) => setLocalExtraIncome(e.target.value)} />
             </Box>
           </Paper>
+        </Box>
 
-
+        <Box sx={{ maxWidth: { xs: '100%', md: '24em' } }}>
           <Paper elevation={3} sx={{ p: 4, mb: 3 }}>
             <Typography variant="subtitle1" gutterBottom>
               Utilities (paid at the beginning of the month)
             </Typography>
-            
-        <Box component="form" onSubmit={() => {}} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-          <Button
-            variant="outlined"
-            onClick={() => setOpenUtilitiesModal(true)}
-          >
-            Click to add monthly utilities
-          </Button>
-          {/* Afișează utilitățile introduse (dacă există) */}
-          {rent || water || gas || electricity || internet || tv || phone ? (
-            <Box sx={{ mt: 2 }}>
-              <Typography variant="body1">
-                Utilities: Rent: {rent}, Water: {water}, Gas: {gas}, Electricity: {electricity}, Internet: {internet}, TV: {tv}, Phone: {phone}
-              </Typography>
-            </Box>
-          ) : null}
-          <Button type="submit" variant="contained" color="primary">
-            Save Income & Utilities
-          </Button>
-        </Box>
 
-
-            <Button type="submit" variant="contained" sx={{ mt: 2 }} color="primary">
-              Save
-            </Button>
-          </Paper>
-        </Box>
-
-        <Box>
-          <Paper elevation={3} sx={{ p: 4, mb: 3 }}>
-            <Typography variant="h6">
-              Daily Limit: {localSalary ? dailyLimit.toFixed(2) : ""} RON
-            </Typography>
-            <Typography variant="subtitle1">
-              Net Monthly Income: {localSalary ? netIncome.toFixed(2) : ""} RON
-            </Typography>
-            <Typography variant="subtitle2">
-              Total Expenses for Today: {expenses.length > 0 ? totalExpensesToday : 0} RON
-            </Typography>
-          </Paper>
-
-          <Paper elevation={3} sx={{ p: 4, mb: 3 }}>
-            <Typography variant="h6" gutterBottom>
-              Add New Expense
-            </Typography>
-            <Box component="form" onSubmit={handleAddExpense} sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
-              <TextField
-                label="Expense Name"
+            <Box component="form" onSubmit={() => { }} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+              <Button
                 variant="outlined"
-                value={expenseName}
-                onChange={(e) => setExpenseName(e.target.value)}
-                required
-              />
-              <TextField
-                label="Amount"
-                type="number"
-                variant="outlined"
-                value={expenseAmount}
-                onChange={(e) => setExpenseAmount(e.target.value)}
-                required
-              />
+                onClick={() => setOpenUtilitiesModal(true)}
+              >
+                Click to add monthly utilities
+              </Button>
+              {rent || water || gas || electricity || internet || tv || phone ? (
+                <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                  <Typography variant="subtitle1" gutterBottom sx={{ mb: 2, fontWeight: 'bold' }}>
+                    Utilities:
+                  </Typography>
+
+                  <Box sx={{ borderBottom: '1px solid #f5f5f5', mb: 1, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <Typography variant="body1">Rent:</Typography>
+                    <Typography variant="body1" sx={{ m: 0, color: 'rgb(255 0 0)' }}>- {rent} RON</Typography>
+                  </Box>
+
+                  <Box sx={{ borderBottom: '1px solid #f5f5f5', mb: 1, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <Typography variant="body1">Water:</Typography>
+                    <Typography variant="body1" sx={{ m: 0, color: 'rgb(255 0 0)' }}>- {water} RON</Typography>
+                  </Box>
+
+                  <Box sx={{ borderBottom: '1px solid #f5f5f5', mb: 1, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <Typography variant="body1">Gas: </Typography>
+                    <Typography variant="body1" sx={{ m: 0, color: 'rgb(255 0 0)' }}>- {gas} RON</Typography>
+                  </Box>
+
+                  <Box sx={{ borderBottom: '1px solid #f5f5f5', mb: 1, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <Typography variant="body1">Electricity:</Typography>
+                    <Typography variant="body1" sx={{ m: 0, color: 'rgb(255 0 0)' }}>- {electricity} RON</Typography>
+                  </Box>
+
+                  <Box sx={{ borderBottom: '1px solid #f5f5f5', mb: 1, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <Typography variant="body1">Internet:</Typography>
+                    <Typography variant="body1" sx={{ m: 0, color: 'rgb(255 0 0)' }}>- {internet} RON</Typography>
+                  </Box>
+
+                  <Box sx={{ borderBottom: '1px solid #f5f5f5', mb: 1, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <Typography variant="body1">TV: </Typography>
+                    <Typography variant="body1" sx={{ m: 0, color: 'rgb(255 0 0)' }}>- {tv} RON</Typography>
+                  </Box>
+
+                  <Box sx={{ borderBottom: '1px solid #f5f5f5', mb: 1, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <Typography variant="body1">Phone: </Typography>
+                    <Typography variant="body1" sx={{ m: 0, color: 'rgb(255 0 0)' }}>- {phone} RON</Typography>
+                  </Box>
+
+                  <Box sx={{ borderBottom: '1px solid #f5f5f5', mb: 1, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <Typography variant="body1" sx={{ fontWeight: 'bold' }}> Total: </Typography>
+                    <Typography variant="body1" sx={{ m: 0, fontWeight: 'bold' }}>{Number(rent) + Number(water) + Number(gas) + Number(electricity) + Number(internet) + Number(tv) + Number(phone)} RON</Typography>
+                  </Box>
+
+                </Box>
+              ) : null}
               <Button type="submit" variant="contained" color="primary">
-                Add Expense
+                Save Income & Utilities
               </Button>
             </Box>
           </Paper>
+
+
+          <Box>
+            <Paper elevation={3} sx={{ p: 4, mb: 3 }}>
+              <Typography variant="h6" gutterBottom>
+                Add New Expense
+              </Typography>
+              <Box component="form" onSubmit={handleAddExpense} sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+                <TextField
+                  label="Expense Name"
+                  variant="outlined"
+                  value={expenseName}
+                  onChange={(e) => setExpenseName(e.target.value)}
+                  required
+                />
+                <TextField
+                  label="Amount"
+                  type="number"
+                  variant="outlined"
+                  value={expenseAmount}
+                  onChange={(e) => setExpenseAmount(e.target.value)}
+                  required
+                />
+                <Button type="submit" variant="contained" color="primary">
+                  Add Expense
+                </Button>
+              </Box>
+            </Paper>
+          </Box>
         </Box>
 
         <Dialog open={openModal} onClose={() => setOpenModal(false)}>
@@ -278,27 +337,30 @@ function Home() {
             <Button onClick={() => setOpenModal(false)} color="primary">
               Close
             </Button>
+            <Button onClick={handleDismissForToday} color="primary">
+              Don't show again for today
+            </Button>
           </DialogActions>
         </Dialog>
         <UtilitiesModal
-        open={openUtilitiesModal}
-        onClose={() => setOpenUtilitiesModal(false)}
-        onSave={handleSaveUtilities}
-        localRent={localRent}
-        setLocalRent={setLocalRent}
-        localWater={localWater}
-        setLocalWater={setLocalWater}
-        localGas={localGas}
-        setLocalGas={setLocalGas}
-        localElectricity={localElectricity}
-        setLocalElectricity={setLocalElectricity}
-        localInternet={localInternet}
-        setLocalInternet={setLocalInternet}
-        localTV={localTV}
-        setLocalTV={setLocalTV}
-        localPhone={localPhone}
-        setLocalPhone={setLocalPhone}
-      />
+          open={openUtilitiesModal}
+          onClose={() => setOpenUtilitiesModal(false)}
+          onSave={handleSaveUtilities}
+          localRent={localRent}
+          setLocalRent={setLocalRent}
+          localWater={localWater}
+          setLocalWater={setLocalWater}
+          localGas={localGas}
+          setLocalGas={setLocalGas}
+          localElectricity={localElectricity}
+          setLocalElectricity={setLocalElectricity}
+          localInternet={localInternet}
+          setLocalInternet={setLocalInternet}
+          localTV={localTV}
+          setLocalTV={setLocalTV}
+          localPhone={localPhone}
+          setLocalPhone={setLocalPhone}
+        />
       </Container>
     </>
   );
