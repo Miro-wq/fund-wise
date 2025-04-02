@@ -92,11 +92,16 @@ function History() {
       >
         <Box sx={{ mr: { xs: 0, md: 3 } }}>
           <Paper elevation={3} sx={{ p: 2, mb: 3 }}>
-            <Typography variant="h6">
+            <Typography variant="h5" align="left" gutterBottom>
+              Income
+            </Typography>
+
+            <Typography variant="subtitle1" sx={{ m: 0, fontWeight: 'bold', background: 'rgb(239 246 255)', padding: '1rem', textAlign: 'center', borderRadius: '5px', mt: 2 }}>
               Monthly Income: {salary} RON
             </Typography>
-            <Typography variant="subtitle1">
-              Additional income: {extraIncome} RON
+            
+            <Typography variant="subtitle1" sx={{ m: 0, fontWeight: 'bold', background: 'rgb(253 238 247)', padding: '1rem', textAlign: 'center', borderRadius: '5px', mt: 2 }}>
+              Additional Income: {extraIncome} RON
             </Typography>
           </Paper>
 
@@ -120,7 +125,7 @@ function History() {
                 variant="outlined"
                 fullWidth
                 type="date"
-                value={startDate}
+                value={startDate || ''}
                 onChange={(e) => setStartDate(e.target.value)}
                 InputLabelProps={{ shrink: true }}
               />
@@ -129,7 +134,7 @@ function History() {
                 variant="outlined"
                 fullWidth
                 type="date"
-                value={endDate}
+                value={endDate || ''}
                 onChange={(e) => setEndDate(e.target.value)}
                 InputLabelProps={{ shrink: true }}
               />
@@ -168,7 +173,7 @@ function History() {
                 variant="outlined"
                 fullWidth
                 type="number"
-                value={minValue}
+                value={minValue || ''}
                 onChange={(e) => setMinValue(e.target.value)}
               />
               <TextField
@@ -176,7 +181,7 @@ function History() {
                 variant="outlined"
                 fullWidth
                 type="number"
-                value={maxValue}
+                value={maxValue || ''}
                 onChange={(e) => setMaxValue(e.target.value)}
               />
             </Box>
@@ -190,10 +195,29 @@ function History() {
                 label="Search by name"
                 variant="outlined"
                 fullWidth
-                value={searchTerm}
+                value={searchTerm || ''}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </Box>
+
+            <Box>
+              {(startDate || endDate || minValue || maxValue || searchTerm) && (
+                <Button
+                  onClick={() => {
+                    setStartDate('');
+                    setEndDate('');
+                    setMinValue('');
+                    setMaxValue('');
+                    setSearchTerm('');
+                  }}
+                  variant="outlined"
+                  sx={{ mt: 1 }}
+                >
+                  Clear Filter
+                </Button>
+              )}
+            </Box>
+
           </Paper>
 
           <Paper elevation={3} sx={{ p: 2, mb: 3, mt: 3 }}>
@@ -214,21 +238,26 @@ function History() {
                 value={selectedDate}
                 onChange={setSelectedDate}
               />
+              {selectedDate && (
+                <Button onClick={() => setSelectedDate(null)} variant="outlined" sx={{ mt: 1 }}>
+                  Clear Date Filter
+                </Button>
+              )}
             </Box>
           </Paper>
 
           {expenses.length === 0 ? (
             <Paper elevation={3} sx={{ p: 2, mb: 3 }}>
-            <Typography variant="body1" sx={{ textAlign: 'center' }}>
-              No expense data available. Please add some expenses to see the history.
-            </Typography>
+              <Typography variant="body1" sx={{ textAlign: 'center' }}>
+                No expense data available. Please add some expenses to see the history.
+              </Typography>
             </Paper>
           ) : (
             filteredExpenses.length === 0 ? (
-              <Paper elevation={3} sx={{ p: 2, mb: 3 }}>
-              <Typography variant="body1" sx={{ textAlign: 'center' }}>
-                No expense data available.
-              </Typography>
+              <Paper elevation={3} sx={{ mb: { xs: 10, md: 0 }, p: 2 }}>
+                <Typography variant="body1" sx={{ textAlign: 'center' }}>
+                  No expense data available.
+                </Typography>
               </Paper>
             ) : (
               <Paper elevation={3} sx={{ mb: { xs: 10, md: 0 }, p: 2 }}>
@@ -275,5 +304,5 @@ function History() {
       </Container>
     </>
   );
-}
-export default History;
+
+} export default History;

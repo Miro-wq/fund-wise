@@ -42,6 +42,7 @@ function MobileBottomNav() {
                     bottom: 0,
                     left: 0,
                     right: 0,
+                    zIndex: 2000,
                     display: { xs: 'block', md: 'none' },
                 }}
                 elevation={3}
@@ -79,7 +80,7 @@ function MobileBottomNav() {
                     <TextField
                         label="Expense Name"
                         fullWidth
-                        sx={{ mb: 2 }}
+                        sx={{ mb: 2, mt: 1 }}
                         value={expenseName}
                         onChange={(e) => setExpenseName(e.target.value)}
                     />

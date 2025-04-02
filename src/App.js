@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, Link, useLocation } from 'react-router-dom';
 import { ExpenseProvider, ExpenseContext } from '../src/context/ExpenseContext';
 import Home from '../src/pages/Home/Home';
 import History from '../src/pages/History/History';
@@ -18,9 +18,12 @@ const PrivateRoute = ({ children }) => {
 
 function AppRoutes() {
   const { token, logout } = useContext(ExpenseContext);
+  const location = useLocation();
+
+  const showMobileBottomNav = !['/login', '/register'].includes(location.pathname);
 
   return (
-    <Router>
+    <>
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
@@ -32,7 +35,22 @@ function AppRoutes() {
                 color="inherit"
                 component={Link}
                 to="/"
-                sx={{ display: { xs: 'none', md: 'block' } }}
+                sx={{
+                  display: { xs: 'none', md: 'block' },
+                  borderBottom: location.pathname === "/" ? '2px solid #fff' : 'none',
+                  textDecoration: 'none',
+                  color: 'inherit',
+                  '&:hover': {
+                    backgroundColor: 'transparent',
+                    color: '#a2a1a1',
+                    textDecoration: 'none',
+                  },
+                  '&:focus, &:active': {
+                    textDecoration: 'none',
+                    color: '#fff',
+                    outline: 'none',
+                  },
+                }}
               >
                 Home
               </Button>
@@ -40,20 +58,74 @@ function AppRoutes() {
                 color="inherit"
                 component={Link}
                 to="/history"
-                sx={{ display: { xs: 'none', md: 'block' } }}
+                sx={{
+                  display: { xs: 'none', md: 'block' },
+                  borderBottom: location.pathname === "/history" ? '2px solid #fff' : 'none',
+                  textDecoration: 'none',
+                  color: 'inherit',
+                  '&:hover': {
+                    backgroundColor: 'transparent',
+                    color: '#a2a1a1',
+                    textDecoration: 'none',
+                  },
+                  '&:focus, &:active': {
+                    textDecoration: 'none',
+                    color: '#fff',
+                    outline: 'none',
+                  },
+                }}
               >
                 History
               </Button>
-              <Button color="inherit" onClick={logout}>
+              <Button color="inherit" onClick={logout}
+              sx={{           
+                textDecoration: 'none',
+                color: 'inherit',
+                '&:hover': {
+                  backgroundColor: 'transparent',
+                  color: '#a2a1a1',
+                  textDecoration: 'none',
+                },
+              }}>
                 Logout
               </Button>
             </>
           ) : (
             <>
-              <Button color="inherit" component={Link} to="/login">
+              <Button color="inherit" component={Link} to="/login"
+              sx={{
+                borderBottom: location.pathname === "/login" ? '2px solid #fff' : 'none',
+                textDecoration: 'none',
+                color: 'inherit',
+                '&:hover': {
+                  backgroundColor: 'transparent',
+                  color: '#a2a1a1',
+                  textDecoration: 'none',
+                },
+                '&:focus, &:active': {
+                  textDecoration: 'none',
+                  color: '#fff',
+                  outline: 'none',
+                },
+              }}>
                 Login
               </Button>
-              <Button color="inherit" component={Link} to="/register">
+              <Button color="inherit" component={Link} to="/register"
+               sx={{
+                borderBottom: location.pathname === "/register" ? '2px solid #fff' : 'none',
+                textDecoration: 'none',
+                color: 'inherit',
+                '&:hover': {
+                  backgroundColor: 'transparent',
+                  color: '#a2a1a1',
+                  textDecoration: 'none',
+                },
+                '&:focus, &:active': {
+                  textDecoration: 'none',
+                  color: '#fff',
+                  outline: 'none',
+                },
+              }}>
                 Register
               </Button>
             </>
@@ -69,8 +141,8 @@ function AppRoutes() {
           <Route path="/history" element={<PrivateRoute><History /></PrivateRoute>} />
         </Routes>
       </Box>
-      <MobileBottomNav />
-    </Router>
+      {showMobileBottomNav && <MobileBottomNav />}
+    </>
   );
 }
 
@@ -79,7 +151,9 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <ExpenseProvider>
-        <AppRoutes />
+        <Router>
+          <AppRoutes />
+        </Router>
       </ExpenseProvider>
     </ThemeProvider>
   );
