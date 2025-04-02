@@ -5,9 +5,10 @@ import Home from '../src/pages/Home/Home';
 import History from '../src/pages/History/History';
 import Login from '../src/pages/Login/Login';
 import Register from '../src/pages/Register/Register';
-import theme from '../src/components/CreateTheme'; 
+import theme from '../src/components/CreateTheme';
 import { ThemeProvider } from '@mui/material/styles';
 import { CssBaseline, AppBar, Toolbar, Typography, Button, Box } from '@mui/material';
+import MobileBottomNav from './components/MobileBottomNav';
 
 
 const PrivateRoute = ({ children }) => {
@@ -27,10 +28,20 @@ function AppRoutes() {
           </Typography>
           {token ? (
             <>
-              <Button color="inherit" component={Link} to="/">
+              <Button
+                color="inherit"
+                component={Link}
+                to="/"
+                sx={{ display: { xs: 'none', md: 'block' } }}
+              >
                 Home
               </Button>
-              <Button color="inherit" component={Link} to="/history">
+              <Button
+                color="inherit"
+                component={Link}
+                to="/history"
+                sx={{ display: { xs: 'none', md: 'block' } }}
+              >
                 History
               </Button>
               <Button color="inherit" onClick={logout}>
@@ -58,6 +69,7 @@ function AppRoutes() {
           <Route path="/history" element={<PrivateRoute><History /></PrivateRoute>} />
         </Routes>
       </Box>
+      <MobileBottomNav />
     </Router>
   );
 }

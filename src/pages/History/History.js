@@ -231,7 +231,7 @@ function History() {
               </Typography>
               </Paper>
             ) : (
-              <Paper elevation={3} sx={{ p: 2, mb: 3 }}>
+              <Paper elevation={3} sx={{ mb: { xs: 10, md: 0 }, p: 2 }}>
                 <Typography variant="subtitle1" gutterBottom sx={{ mb: 2, fontWeight: 'bold' }}>
                   Expense Entries
                 </Typography>

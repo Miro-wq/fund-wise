@@ -298,7 +298,7 @@ function Home() {
 
 
           <Box>
-            <Paper elevation={3} sx={{ p: 4, mb: 3 }}>
+            <Paper elevation={3} sx={{ mb: { xs: 10, md: 0 }, p: 2 }}>
               <Typography variant="h6" gutterBottom>
                 Add New Expense
               </Typography>
