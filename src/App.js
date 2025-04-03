@@ -5,8 +5,8 @@ import Home from '../src/pages/Home/Home';
 import History from '../src/pages/History/History';
 import Login from '../src/pages/Login/Login';
 import Register from '../src/pages/Register/Register';
-import theme from '../src/components/CreateTheme';
-import { ThemeProvider } from '@mui/material/styles';
+import { CustomThemeProvider } from './components/ThemeContext';
+import ThemeToggleButton from './components/ThemeToggleButton';
 import { CssBaseline, AppBar, Toolbar, Typography, Button, Box } from '@mui/material';
 import MobileBottomNav from './components/MobileBottomNav';
 
@@ -19,6 +19,8 @@ const PrivateRoute = ({ children }) => {
 function AppRoutes() {
   const { token, logout } = useContext(ExpenseContext);
   const location = useLocation();
+
+
 
   const showMobileBottomNav = !['/login', '/register'].includes(location.pathname);
 
@@ -40,6 +42,7 @@ function AppRoutes() {
                   borderBottom: location.pathname === "/" ? '2px solid #fff' : 'none',
                   textDecoration: 'none',
                   color: 'inherit',
+                  mr: 2,
                   '&:hover': {
                     backgroundColor: 'transparent',
                     color: '#a2a1a1',
@@ -63,6 +66,7 @@ function AppRoutes() {
                   borderBottom: location.pathname === "/history" ? '2px solid #fff' : 'none',
                   textDecoration: 'none',
                   color: 'inherit',
+                  mr: 2,
                   '&:hover': {
                     backgroundColor: 'transparent',
                     color: '#a2a1a1',
@@ -78,58 +82,60 @@ function AppRoutes() {
                 History
               </Button>
               <Button color="inherit" onClick={logout}
-              sx={{           
-                textDecoration: 'none',
-                color: 'inherit',
-                '&:hover': {
-                  backgroundColor: 'transparent',
-                  color: '#a2a1a1',
+                sx={{
                   textDecoration: 'none',
-                },
-              }}>
+                  color: 'inherit',
+                  backgroundColor: '#ff2a2a',
+                  '&:hover': {
+                    backgroundColor: '#c32424',
+                    textDecoration: 'none',
+                  },
+                  mr: 2,
+                }}>
                 Logout
               </Button>
             </>
           ) : (
             <>
               <Button color="inherit" component={Link} to="/login"
-              sx={{
-                borderBottom: location.pathname === "/login" ? '2px solid #fff' : 'none',
-                textDecoration: 'none',
-                color: 'inherit',
-                '&:hover': {
-                  backgroundColor: 'transparent',
-                  color: '#a2a1a1',
+                sx={{
+                  borderBottom: location.pathname === "/login" ? '2px solid #fff' : 'none',
                   textDecoration: 'none',
-                },
-                '&:focus, &:active': {
-                  textDecoration: 'none',
-                  color: '#fff',
-                  outline: 'none',
-                },
-              }}>
+                  color: 'inherit',
+                  '&:hover': {
+                    backgroundColor: 'transparent',
+                    color: '#a2a1a1',
+                    textDecoration: 'none',
+                  },
+                  '&:focus, &:active': {
+                    textDecoration: 'none',
+                    color: '#fff',
+                    outline: 'none',
+                  },
+                }}>
                 Login
               </Button>
               <Button color="inherit" component={Link} to="/register"
-               sx={{
-                borderBottom: location.pathname === "/register" ? '2px solid #fff' : 'none',
-                textDecoration: 'none',
-                color: 'inherit',
-                '&:hover': {
-                  backgroundColor: 'transparent',
-                  color: '#a2a1a1',
+                sx={{
+                  borderBottom: location.pathname === "/register" ? '2px solid #fff' : 'none',
                   textDecoration: 'none',
-                },
-                '&:focus, &:active': {
-                  textDecoration: 'none',
-                  color: '#fff',
-                  outline: 'none',
-                },
-              }}>
+                  color: 'inherit',
+                  '&:hover': {
+                    backgroundColor: 'transparent',
+                    color: '#a2a1a1',
+                    textDecoration: 'none',
+                  },
+                  '&:focus, &:active': {
+                    textDecoration: 'none',
+                    color: '#fff',
+                    outline: 'none',
+                  },
+                }}>
                 Register
               </Button>
             </>
           )}
+          <ThemeToggleButton />
         </Toolbar>
       </AppBar>
 
@@ -148,13 +154,13 @@ function AppRoutes() {
 
 export default function App() {
   return (
-    <ThemeProvider theme={theme}>
+    <CustomThemeProvider>
       <CssBaseline />
       <ExpenseProvider>
         <Router>
           <AppRoutes />
         </Router>
       </ExpenseProvider>
-    </ThemeProvider>
+    </CustomThemeProvider>
   );
 }

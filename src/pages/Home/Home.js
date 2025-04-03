@@ -163,7 +163,16 @@ function Home() {
 
   return (
     <>
-      <Typography variant="subtitle1" align="right" gutterBottom sx={{ mb: 0, pr: 3, borderBottom: '2px solid #f5f5f5' }}>
+      <Typography variant="subtitle1"
+        align="right"
+        gutterBottom
+        sx={(theme) => ({
+          mb: 0,
+          pr: 3,
+          borderBottom: theme.palette.mode === 'dark'
+            ? '2px solid #333c45'
+            : '2px solid #f5f5f5',
+        })}>
         Signed in as: {user?.username}
       </Typography>
       <Container sx={{
@@ -173,7 +182,7 @@ function Home() {
       }}
       >
         <Box sx={{ mr: { xs: 0, md: 3 } }}>
-          <Paper elevation={3} sx={{ p: 4, mb: 3 }}>
+          <Paper elevation={3} sx={{ p: 2, mb: 3 }}>
             <Typography variant="h5" align="left" gutterBottom>
               Monthly Overview
             </Typography>
@@ -184,29 +193,42 @@ function Home() {
               gap: { xs: '0', md: '32px' },
               flexDirection: { xs: 'column', md: 'row' },
             }}>
-              <Typography variant="subtitle1" sx={{ m: 0, fontWeight: 'bold', background: 'rgb(239 246 255)', padding: '1rem', textAlign: 'center', borderRadius: '5px', mt: 2 }}>
+              <Typography variant="subtitle1" sx={{
+                m: 0, fontWeight: 'bold', background: 'rgb(239 246 255)', padding: '1rem', textAlign: 'center', borderRadius: '5px', mt: 2, color: (theme) =>
+                  theme.palette.mode === 'dark' ? '#000' : undefined
+              }}>
                 Net Monthly Income: {localSalary ? netIncome.toFixed(2) : ""} RON
               </Typography>
 
-              <Typography variant="subtitle1" sx={{ m: 0, fontWeight: 'bold', background: 'rgb(254 242 242)', padding: '1rem', textAlign: 'center', borderRadius: '5px', mt: 2 }}>
+              <Typography variant="subtitle1" sx={{
+                m: 0, fontWeight: 'bold', background: 'rgb(254 242 242)', padding: '1rem', textAlign: 'center', borderRadius: '5px', mt: 2, color: (theme) =>
+                  theme.palette.mode === 'dark' ? '#000' : undefined
+              }}>
                 Expenses for Today: {expenses.length > 0 ? totalExpensesToday : 0} RON
               </Typography>
 
-              <Typography variant="subtitle1" sx={{ m: 0, fontWeight: 'bold', background: 'rgb(240 253 244)', padding: '1rem', textAlign: 'center', borderRadius: '5px', mt: 2 }}>
+              <Typography variant="subtitle1" sx={{
+                m: 0, fontWeight: 'bold', background: 'rgb(240 253 244)', padding: '1rem', textAlign: 'center', borderRadius: '5px', mt: 2, color: (theme) =>
+                  theme.palette.mode === 'dark' ? '#000' : undefined
+              }}>
                 Daily Limit: {localSalary ? dailyLimit.toFixed(2) : ""} RON
               </Typography>
             </Box>
           </Paper>
 
-          <Paper elevation={3} sx={{ p: 4, mb: 3 }}>
+          <Paper elevation={3} sx={{ p: 2, mb: 3 }}>
             <DailyLimitProgress
               currentExpense={totalExpensesToday}
               dailyLimit={dailyLimit}
             />
           </Paper>
 
-          <Paper elevation={3} sx={{ p: 4, mb: 3 }}>
-            <p style={{ color: 'rgb(255 0 0)', marginBottom: '10px', background: '#f5f5f5', padding: '10px', textAlign: 'center', borderRadius: '5px' }}>Before inserting new income, please export your expenses as a PDF from the History page.</p>
+          <Paper elevation={3} sx={{ p: 2, mb: 3 }}>
+            <Typography variant="subtitle1" sx={{
+              color: (theme) =>
+                theme.palette.mode === 'dark' ? 'undefined' : 'rgb(255 0 0)', marginBottom: '10px', background: (theme) =>
+                  theme.palette.mode === 'dark' ? '#26436d' : '#f5f5f5', padding: '10px', textAlign: 'center', borderRadius: '5px'
+            }}>Before inserting new income, please export your expenses as a PDF from the History page.</Typography>
 
             <Typography variant="h6" gutterBottom>
               Set Monthly Income and Utilities
@@ -222,7 +244,11 @@ function Home() {
                 required
               />
 
-              <p style={{ color: 'rgb(255 0 0)', background: '#f5f5f5', padding: '10px', textAlign: 'center', borderRadius: '5px' }}>CAUTION! new income or extra income will reset all expenses and history!</p>
+              <Typography variant="subtitle1" sx={{
+                color: (theme) =>
+                  theme.palette.mode === 'dark' ? 'undefined' : 'rgb(255 0 0)', marginBottom: '10px', background: (theme) =>
+                    theme.palette.mode === 'dark' ? '#26436d' : '#f5f5f5', padding: '10px', textAlign: 'center', borderRadius: '5px'
+              }}>CAUTION! new income or extra income will reset all expenses and history!</Typography>
 
               <TextField label="Extra Income" type="number" variant="outlined" value={localExtraIncome} onChange={(e) => setLocalExtraIncome(e.target.value)} />
             </Box>
@@ -230,7 +256,7 @@ function Home() {
         </Box>
 
         <Box sx={{ maxWidth: { xs: '100%', md: '24em' } }}>
-          <Paper elevation={3} sx={{ p: 4, mb: 3 }}>
+          <Paper elevation={3} sx={{ p: 2, mb: 3 }}>
             <Typography variant="subtitle1" gutterBottom>
               Utilities (paid at the beginning of the month)
             </Typography>
@@ -248,43 +274,71 @@ function Home() {
                     Utilities:
                   </Typography>
 
-                  <Box sx={{ borderBottom: '1px solid #f5f5f5', mb: 1, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <Box sx={(theme) => ({
+                    borderBottom: theme.palette.mode === 'dark'
+                      ? '2px solid #333c45'
+                      : '2px solid #f5f5f5', mb: 1, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'
+                  })}>
                     <Typography variant="body1">Rent:</Typography>
                     <Typography variant="body1" sx={{ m: 0, color: 'rgb(255 0 0)' }}>- {rent} RON</Typography>
                   </Box>
 
-                  <Box sx={{ borderBottom: '1px solid #f5f5f5', mb: 1, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <Box sx={(theme) => ({
+                    borderBottom: theme.palette.mode === 'dark'
+                      ? '2px solid #333c45'
+                      : '2px solid #f5f5f5', mb: 1, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'
+                  })}>
                     <Typography variant="body1">Water:</Typography>
                     <Typography variant="body1" sx={{ m: 0, color: 'rgb(255 0 0)' }}>- {water} RON</Typography>
                   </Box>
 
-                  <Box sx={{ borderBottom: '1px solid #f5f5f5', mb: 1, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <Box sx={(theme) => ({
+                    borderBottom: theme.palette.mode === 'dark'
+                      ? '2px solid #333c45'
+                      : '2px solid #f5f5f5', mb: 1, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'
+                  })}>
                     <Typography variant="body1">Gas: </Typography>
                     <Typography variant="body1" sx={{ m: 0, color: 'rgb(255 0 0)' }}>- {gas} RON</Typography>
                   </Box>
 
-                  <Box sx={{ borderBottom: '1px solid #f5f5f5', mb: 1, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <Box sx={(theme) => ({
+                    borderBottom: theme.palette.mode === 'dark'
+                      ? '2px solid #333c45'
+                      : '2px solid #f5f5f5', mb: 1, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'
+                  })}>
                     <Typography variant="body1">Electricity:</Typography>
                     <Typography variant="body1" sx={{ m: 0, color: 'rgb(255 0 0)' }}>- {electricity} RON</Typography>
                   </Box>
 
-                  <Box sx={{ borderBottom: '1px solid #f5f5f5', mb: 1, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <Box sx={(theme) => ({
+                    borderBottom: theme.palette.mode === 'dark'
+                      ? '2px solid #333c45'
+                      : '2px solid #f5f5f5', mb: 1, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'
+                  })}>
                     <Typography variant="body1">Internet:</Typography>
                     <Typography variant="body1" sx={{ m: 0, color: 'rgb(255 0 0)' }}>- {internet} RON</Typography>
                   </Box>
 
-                  <Box sx={{ borderBottom: '1px solid #f5f5f5', mb: 1, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <Box sx={(theme) => ({
+                    borderBottom: theme.palette.mode === 'dark'
+                      ? '2px solid #333c45'
+                      : '2px solid #f5f5f5', mb: 1, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'
+                  })}>
                     <Typography variant="body1">TV: </Typography>
                     <Typography variant="body1" sx={{ m: 0, color: 'rgb(255 0 0)' }}>- {tv} RON</Typography>
                   </Box>
 
-                  <Box sx={{ borderBottom: '1px solid #f5f5f5', mb: 1, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <Box sx={(theme) => ({
+                    borderBottom: theme.palette.mode === 'dark'
+                      ? '2px solid #333c45'
+                      : '2px solid #f5f5f5', mb: 1, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'
+                  })}>
                     <Typography variant="body1">Phone: </Typography>
                     <Typography variant="body1" sx={{ m: 0, color: 'rgb(255 0 0)' }}>- {phone} RON</Typography>
                   </Box>
 
-                  <Box sx={{ borderBottom: '1px solid #f5f5f5', mb: 1, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <Typography variant="body1" sx={{ fontWeight: 'bold' }}> Total: </Typography>
+                  <Box sx={{ mb: 1, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <Typography variant="body1" sx={{ fontWeight: 'bold', }}> Total: </Typography>
                     <Typography variant="body1" sx={{ m: 0, fontWeight: 'bold' }}>{Number(rent) + Number(water) + Number(gas) + Number(electricity) + Number(internet) + Number(tv) + Number(phone)} RON</Typography>
                   </Box>
 

@@ -81,7 +81,16 @@ function History() {
 
   return (
     <>
-      <Typography variant="subtitle1" align="right" gutterBottom sx={{ mb: 0, pr: 3, borderBottom: '2px solid #f5f5f5' }}>
+      <Typography variant="subtitle1"
+        align="right"
+        gutterBottom
+        sx={(theme) => ({
+          mb: 0,
+          pr: 3,
+          borderBottom: theme.palette.mode === 'dark'
+            ? '2px solid #333c45'
+            : '2px solid #f5f5f5',
+        })}>
         Signed in as: {user?.username}
       </Typography>
       <Container sx={{
@@ -96,11 +105,17 @@ function History() {
               Income
             </Typography>
 
-            <Typography variant="subtitle1" sx={{ m: 0, fontWeight: 'bold', background: 'rgb(239 246 255)', padding: '1rem', textAlign: 'center', borderRadius: '5px', mt: 2 }}>
+            <Typography variant="subtitle1" sx={{
+              m: 0, fontWeight: 'bold', background: 'rgb(239 246 255)', padding: '1rem', textAlign: 'center', borderRadius: '5px', mt: 2, color: (theme) =>
+                theme.palette.mode === 'dark' ? '#000' : undefined
+            }}>
               Monthly Income: {salary} RON
             </Typography>
-            
-            <Typography variant="subtitle1" sx={{ m: 0, fontWeight: 'bold', background: 'rgb(253 238 247)', padding: '1rem', textAlign: 'center', borderRadius: '5px', mt: 2 }}>
+
+            <Typography variant="subtitle1" sx={{
+              m: 0, fontWeight: 'bold', background: 'rgb(253 238 247)', padding: '1rem', textAlign: 'center', borderRadius: '5px', mt: 2, color: (theme) =>
+                theme.palette.mode === 'dark' ? '#000' : undefined
+            }}>
               Additional Income: {extraIncome} RON
             </Typography>
           </Paper>
@@ -202,7 +217,7 @@ function History() {
 
             <Box>
               {(startDate || endDate || minValue || maxValue || searchTerm) && (
-                <Button
+                <Button color="primary"
                   onClick={() => {
                     setStartDate('');
                     setEndDate('');
@@ -210,7 +225,7 @@ function History() {
                     setMaxValue('');
                     setSearchTerm('');
                   }}
-                  variant="outlined"
+                  variant="contained"
                   sx={{ mt: 1 }}
                 >
                   Clear Filter
@@ -239,7 +254,7 @@ function History() {
                 onChange={setSelectedDate}
               />
               {selectedDate && (
-                <Button onClick={() => setSelectedDate(null)} variant="outlined" sx={{ mt: 1 }}>
+                <Button color="primary" onClick={() => setSelectedDate(null)} variant="contained" sx={{ mt: 1 }}>
                   Clear Date Filter
                 </Button>
               )}
