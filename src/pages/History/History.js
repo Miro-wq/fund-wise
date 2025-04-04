@@ -106,14 +106,14 @@ function History() {
             </Typography>
 
             <Typography variant="subtitle1" sx={{
-              m: 0, fontWeight: 'bold', background: 'rgb(239 246 255)', padding: '1rem', textAlign: 'center', borderRadius: '5px', mt: 2, color: (theme) =>
+              m: 0, fontWeight: 'bold', background: 'rgb(208 229 255)', padding: '1rem', textAlign: 'center', borderRadius: '5px', mt: 2, color: (theme) =>
                 theme.palette.mode === 'dark' ? '#000' : undefined
             }}>
               Monthly Income: {salary} RON
             </Typography>
 
             <Typography variant="subtitle1" sx={{
-              m: 0, fontWeight: 'bold', background: 'rgb(253 238 247)', padding: '1rem', textAlign: 'center', borderRadius: '5px', mt: 2, color: (theme) =>
+              m: 0, fontWeight: 'bold', background: 'rgb(255 207 236)', padding: '1rem', textAlign: 'center', borderRadius: '5px', mt: 2, color: (theme) =>
                 theme.palette.mode === 'dark' ? '#000' : undefined
             }}>
               Additional Income: {extraIncome} RON

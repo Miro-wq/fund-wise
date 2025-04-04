@@ -190,25 +190,25 @@ function Home() {
             <Box sx={{
               display: 'flex',
               justifyContent: 'space-around',
-              gap: { xs: '0', md: '32px' },
+              gap: { xs: '0', md: '15px' },
               flexDirection: { xs: 'column', md: 'row' },
             }}>
               <Typography variant="subtitle1" sx={{
-                m: 0, fontWeight: 'bold', background: 'rgb(239 246 255)', padding: '1rem', textAlign: 'center', borderRadius: '5px', mt: 2, color: (theme) =>
+                m: 0, fontWeight: 'bold', background: 'rgb(208 229 255)', padding: '1rem', textAlign: 'center', borderRadius: '5px', mt: 2, color: (theme) =>
                   theme.palette.mode === 'dark' ? '#000' : undefined
               }}>
                 Net Monthly Income: {localSalary ? netIncome.toFixed(2) : ""} RON
               </Typography>
 
               <Typography variant="subtitle1" sx={{
-                m: 0, fontWeight: 'bold', background: 'rgb(254 242 242)', padding: '1rem', textAlign: 'center', borderRadius: '5px', mt: 2, color: (theme) =>
+                m: 0, fontWeight: 'bold', background: 'rgb(255 212 212)', padding: '1rem', textAlign: 'center', borderRadius: '5px', mt: 2, color: (theme) =>
                   theme.palette.mode === 'dark' ? '#000' : undefined
               }}>
                 Expenses for Today: {expenses.length > 0 ? totalExpensesToday : 0} RON
               </Typography>
 
               <Typography variant="subtitle1" sx={{
-                m: 0, fontWeight: 'bold', background: 'rgb(240 253 244)', padding: '1rem', textAlign: 'center', borderRadius: '5px', mt: 2, color: (theme) =>
+                m: 0, fontWeight: 'bold', background: 'rgb(212 255 225)', padding: '1rem', textAlign: 'center', borderRadius: '5px', mt: 2, color: (theme) =>
                   theme.palette.mode === 'dark' ? '#000' : undefined
               }}>
                 Daily Limit: {localSalary ? dailyLimit.toFixed(2) : ""} RON
