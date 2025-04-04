@@ -103,6 +103,7 @@ app.post('/api/salary', authMiddleware, async (req, res) => {
 
 //netlify/functions/api.js
 app.post('/api/reset', authMiddleware, async (req, res) => {
+  console.log("Received body:", req.body);
   const { salary, extraIncome, rent, water, gas, electricity, internet, tv, phone } = req.body;
   try {
     const user = await User.findById(req.user.id);
@@ -119,6 +120,7 @@ app.post('/api/reset', authMiddleware, async (req, res) => {
     await user.save();
     res.json({ message: 'Income and utilities updated, expenses reset.' });
   } catch (err) {
+    console.error("Error in /api/reset:", err);
     res.status(500).json({ message: 'Server error during reset.' });
   }
 });

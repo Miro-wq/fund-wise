@@ -16,6 +16,7 @@ import {
 import UtilitiesModal from '../../components/UtilitiesModal';
 import DailyLimitProgress from '../../components/DailyLimitProgress';
 import HowToUseModal from '../../components/HowToUseModal';
+import IncomeDisplay from '../../components/IncomeDisplay';
 
 
 function Home() {
@@ -217,7 +218,7 @@ function Home() {
                 m: 0, fontWeight: 'bold', background: 'rgb(208 229 255)', padding: '1rem', textAlign: 'center', borderRadius: '5px', mt: 2, color: (theme) =>
                   theme.palette.mode === 'dark' ? '#000' : undefined
               }}>
-                Net Monthly Income: {localSalary ? netIncome.toFixed(2) : ""} RON
+                <IncomeDisplay netIncome={netIncome} salary={salary} />
               </Typography>
 
               <Typography variant="subtitle1" sx={{
