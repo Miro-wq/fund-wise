@@ -15,6 +15,7 @@ import {
 } from '@mui/material';
 import UtilitiesModal from '../../components/UtilitiesModal';
 import DailyLimitProgress from '../../components/DailyLimitProgress';
+import HowToUseModal from '../../components/HowToUseModal';
 
 function Home() {
   const {
@@ -90,12 +91,27 @@ function Home() {
   const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
+    //modal pentru a afișa dacă a fost depășită limita zilnică
     const dismissedDate = localStorage.getItem("limitModalDismissed");
     const todayStr = new Date().toDateString();
     if (dailyLimit > 0 && totalExpensesToday > dailyLimit && dismissedDate !== todayStr) {
       setOpenModal(true);
     }
   }, [dailyLimit, totalExpensesToday]);
+
+  useEffect(() => {
+    //verifică dacă utilizatorul a mai văzut modalul
+    const hasSeen = localStorage.getItem('hasSeenInstructions');
+    if (!hasSeen) {
+      setOpenModal(true);
+    }
+  }, []);
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+    localStorage.setItem('hasSeenInstructions', 'true');
+  };
+
 
   const handleDismissForToday = () => {
     const todayStr = new Date().toDateString();
@@ -130,6 +146,7 @@ function Home() {
   };
 
   const handleSaveUtilities = () => {
+    //salvează utilitățile în DB
     axios.post('/api/reset', {
       salary: localSalary,
       extraIncome: localExtraIncome,
@@ -363,6 +380,7 @@ function Home() {
                   value={expenseName}
                   onChange={(e) => setExpenseName(e.target.value)}
                   required
+                  fullWidth
                 />
                 <TextField
                   label="Amount"
@@ -371,6 +389,7 @@ function Home() {
                   value={expenseAmount}
                   onChange={(e) => setExpenseAmount(e.target.value)}
                   required
+                  fullWidth
                 />
                 <Button type="submit" variant="contained" color="primary">
                   Add Expense
@@ -415,6 +434,7 @@ function Home() {
           localPhone={localPhone}
           setLocalPhone={setLocalPhone}
         />
+        <HowToUseModal open={openModal} handleClose={handleCloseModal} />
       </Container>
     </>
   );

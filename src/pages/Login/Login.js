@@ -82,6 +82,9 @@ function Login() {
             Register
           </Link>
         </Typography>
+        <Typography variant="body2" align="center" sx={{ mt: 2 }}>
+          Check out <Link to="/whats-new" style={{ textDecoration: 'none', color: '#1976d2' }}>What's New!</Link> page for the latest updates.
+        </Typography>
       </Paper>
     </Container>
   );

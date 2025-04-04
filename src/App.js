@@ -9,6 +9,8 @@ import { CustomThemeProvider } from './components/ThemeContext';
 import ThemeToggleButton from './components/ThemeToggleButton';
 import { CssBaseline, AppBar, Toolbar, Typography, Button, Box } from '@mui/material';
 import MobileBottomNav from './components/MobileBottomNav';
+import LogoutIcon from '@mui/icons-material/Logout';
+import WhatsNew from './pages/WhatsNew';
 
 
 const PrivateRoute = ({ children }) => {
@@ -22,15 +24,27 @@ function AppRoutes() {
 
 
 
-  const showMobileBottomNav = !['/login', '/register'].includes(location.pathname);
+  const showMobileBottomNav = !['/login', '/register', '/whats-new'].includes(location.pathname);
 
   return (
     <>
       <AppBar position="static">
         <Toolbar>
-          <Typography variant="h6" sx={{ flexGrow: 1 }}>
-            ExpenseTracker
-          </Typography>
+          <Box sx={{ flexGrow: 1 }}>
+            <Box sx={{ display: { xs: 'none', md: 'block' } }}>
+              <Typography variant="h6">
+                ExpenseTracker
+              </Typography>
+            </Box>
+            <Box sx={{ display: { xs: 'block', md: 'none' } }}>
+              <Box
+                component="img"
+                src="/logo.png"
+                alt="Logo"
+                sx={{ height: 25 }}
+              />
+            </Box>
+          </Box>
           {token ? (
             <>
               <Button
@@ -66,7 +80,7 @@ function AppRoutes() {
                   borderBottom: location.pathname === "/history" ? '2px solid #fff' : 'none',
                   textDecoration: 'none',
                   color: 'inherit',
-                  mr: 2,
+
                   '&:hover': {
                     backgroundColor: 'transparent',
                     color: '#a2a1a1',
@@ -85,14 +99,13 @@ function AppRoutes() {
                 sx={{
                   textDecoration: 'none',
                   color: 'inherit',
-                  backgroundColor: '#ff2a2a',
                   '&:hover': {
-                    backgroundColor: '#c32424',
+                    backgroundColor: 'transparent',
+                    color: '#a2a1a1',
                     textDecoration: 'none',
                   },
-                  mr: 2,
                 }}>
-                Logout
+                <LogoutIcon />
               </Button>
             </>
           ) : (
@@ -143,6 +156,7 @@ function AppRoutes() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/whats-new" element={<WhatsNew />} />
           <Route path="/" element={<PrivateRoute><Home /></PrivateRoute>} />
           <Route path="/history" element={<PrivateRoute><History /></PrivateRoute>} />
         </Routes>
