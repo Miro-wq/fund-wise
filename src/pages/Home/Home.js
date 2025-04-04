@@ -17,6 +17,7 @@ import UtilitiesModal from '../../components/UtilitiesModal';
 import DailyLimitProgress from '../../components/DailyLimitProgress';
 import HowToUseModal from '../../components/HowToUseModal';
 
+
 function Home() {
   const {
     user,
@@ -89,6 +90,7 @@ function Home() {
   }, [extraIncome]);
 
   const [openModal, setOpenModal] = useState(false);
+  const [openInstructionsModal, setOpenInstructionsModal] = useState(false);
 
   useEffect(() => {
     //modal pentru a afișa dacă a fost depășită limita zilnică
@@ -99,18 +101,19 @@ function Home() {
     }
   }, [dailyLimit, totalExpensesToday]);
 
+  //modal pentru a afișa instrucțiuni
   useEffect(() => {
-    //verifică dacă utilizatorul a mai văzut modalul
     const hasSeen = localStorage.getItem('hasSeenInstructions');
     if (!hasSeen) {
-      setOpenModal(true);
+      setOpenInstructionsModal(true);
     }
   }, []);
 
   const handleCloseModal = () => {
-    setOpenModal(false);
+    setOpenInstructionsModal(false);
     localStorage.setItem('hasSeenInstructions', 'true');
   };
+  //===================================================================================
 
 
   const handleDismissForToday = () => {
@@ -434,7 +437,7 @@ function Home() {
           localPhone={localPhone}
           setLocalPhone={setLocalPhone}
         />
-        <HowToUseModal open={openModal} handleClose={handleCloseModal} />
+        <HowToUseModal open={openInstructionsModal} handleClose={handleCloseModal} />
       </Container>
     </>
   );

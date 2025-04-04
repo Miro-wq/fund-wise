@@ -50,6 +50,30 @@ function AppRoutes() {
               <Button
                 color="inherit"
                 component={Link}
+                to="/whats-new"
+                sx={{
+                  mr: { xs: '0', md: 2 },
+                  borderBottom: location.pathname === "/whats-new" ? '2px solid #fff' : 'none',
+                  textDecoration: 'none',
+                  textTransform: 'capitalize',
+                  color: '#0080b7',
+                  '&:hover': {
+                    backgroundColor: 'transparent',
+                    color: '#a2a1a1',
+                    textDecoration: 'none',
+                  },
+                  '&:focus, &:active': {
+                    textDecoration: 'none',
+                    color: '#fff',
+                    outline: 'none',
+                  },
+                }}
+              >
+                What's New!
+              </Button>
+              <Button
+                color="inherit"
+                component={Link}
                 to="/"
                 sx={{
                   display: { xs: 'none', md: 'block' },

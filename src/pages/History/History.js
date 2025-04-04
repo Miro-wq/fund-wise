@@ -262,7 +262,7 @@ function History() {
           </Paper>
 
           {expenses.length === 0 ? (
-            <Paper elevation={3} sx={{ p: 2, mb: 3 }}>
+            <Paper elevation={3} sx={{ p: 2, mb: 10 }}>
               <Typography variant="body1" sx={{ textAlign: 'center' }}>
                 No expense data available. Please add some expenses to see the history.
               </Typography>
