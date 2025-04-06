@@ -107,15 +107,15 @@ app.post('/api/reset', authMiddleware, async (req, res) => {
   const { salary, extraIncome, rent, water, gas, electricity, internet, tv, phone } = req.body;
   try {
     const user = await User.findById(req.user.id);
-    user.salary = salary;
-    user.extraIncome = Number(extraIncome);
-    user.rent = Number(rent);
-    user.water = Number(water);
-    user.gas = Number(gas);
-    user.electricity = Number(electricity);
-    user.internet = Number(internet);
-    user.tv = Number(tv);
-    user.phone = Number(phone);
+    if (typeof salary !== 'undefined') user.salary = salary;
+    if (typeof extraIncome !== 'undefined') user.extraIncome = Number(extraIncome);
+    if (typeof rent !== 'undefined') user.rent = Number(rent);
+    if (typeof water !== 'undefined') user.water = Number(water);
+    if (typeof gas !== 'undefined') user.gas = Number(gas);
+    if (typeof electricity !== 'undefined') user.electricity = Number(electricity);
+    if (typeof internet !== 'undefined') user.internet = Number(internet);
+    if (typeof tv !== 'undefined') user.tv = Number(tv);
+    if (typeof phone !== 'undefined') user.phone = Number(phone);
     user.expenses = [];
     await user.save();
     res.json({ message: 'Income and utilities updated, expenses reset.' });
@@ -124,6 +124,7 @@ app.post('/api/reset', authMiddleware, async (req, res) => {
     res.status(500).json({ message: 'Server error during reset.' });
   }
 });
+
 
 
 //endpoint pentru adăugarea unei cheltuieli

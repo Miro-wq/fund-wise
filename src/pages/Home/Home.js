@@ -129,19 +129,11 @@ function Home() {
     if (localSalary) {
       axios.post('/api/reset', {
         salary: localSalary,
-        extraIncome: localExtraIncome,
-        rent: localRent,
-        water: localWater,
-        gas: localGas,
-        electricity: localElectricity,
-        internet: localInternet,
-        tv: localTV,
-        phone: localPhone
+        extraIncome: Number(localExtraIncome),
       }, {
         headers: { Authorization: `Bearer ${token}` },
       })
         .then(() => {
-          //actualizează contextul după reset
           setSalary(localSalary);
           setExtraIncome(localExtraIncome);
         })
@@ -150,27 +142,27 @@ function Home() {
   };
 
   const handleSaveUtilities = () => {
-    //salvează utilitățile în DB
-    axios.post('/api/reset', {
-      salary: localSalary,
-      extraIncome: localExtraIncome,
-      rent: localRent,
-      water: localWater,
-      gas: localGas,
-      electricity: localElectricity,
-      internet: localInternet,
-      tv: localTV,
-      phone: localPhone,
-    }, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
+    axios.post(
+      '/api/reset',
+      {
+        salary: localSalary,
+        extraIncome: Number(localExtraIncome),
+        rent: Number(localRent) || 0,
+        water: Number(localWater) || 0,
+        gas: Number(localGas) || 0,
+        electricity: Number(localElectricity) || 0,
+        internet: Number(localInternet) || 0,
+        tv: Number(localTV) || 0,
+        phone: Number(localPhone) || 0,
+      },
+      { headers: { Authorization: `Bearer ${token}` } }
+    )
       .then(() => {
-        setSalary(localSalary);
-        setExtraIncome(localExtraIncome);
         setOpenUtilitiesModal(false);
       })
       .catch(err => console.error(err));
   };
+
 
   //adaugă o cheltuială nouă
   const handleAddExpense = (e) => {

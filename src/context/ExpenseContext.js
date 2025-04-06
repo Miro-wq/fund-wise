@@ -54,11 +54,21 @@ export const ExpenseProvider = ({ children }) => {
       .catch(err => console.error(err));
   };
 
-  const updateSalary = (newSalary) => {
+  const updateSalary = (newSalary, newExtraIncome, newRent, newWater, newGas, newElectricity, newInternet, newTV, newPhone) => {
     setSalary(newSalary);
     setExpenses([]);
     //endpoint pentru a actualiza salariul
-    axios.post('/api/reset', { salary: newSalary }, {
+    axios.post('/api/reset', { 
+      salary: newSalary,
+      extraIncome: newExtraIncome,
+      rent: newRent,
+      water: newWater,
+      gas: newGas,
+      electricity: newElectricity,
+      internet: newInternet,
+      tv: newTV,
+      phone: newPhone
+    }, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .catch(err => console.error(err));
