@@ -72,8 +72,8 @@ app.post('/api/register', async (req, res) => {
 app.get('/api/data', authMiddleware, async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
-    res.json({ 
-      salary: user.salary, 
+    res.json({
+      salary: user.salary,
       extraIncome: user.extraIncome,
       rent: user.rent,
       water: user.water,

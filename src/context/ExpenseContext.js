@@ -57,8 +57,8 @@ export const ExpenseProvider = ({ children }) => {
   const updateSalary = (newSalary, newExtraIncome, newRent, newWater, newGas, newElectricity, newInternet, newTV, newPhone) => {
     setSalary(newSalary);
     setExpenses([]);
-    //endpoint pentru a actualiza salariul
-    axios.post('/api/reset', { 
+    //endpoint pentru a actualiza salariul, venitul suplimentar si utilitățile
+    axios.post('/api/reset', {
       salary: newSalary,
       extraIncome: newExtraIncome,
       rent: newRent,

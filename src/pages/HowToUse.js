@@ -3,7 +3,7 @@ import { Container, Paper, Typography, List, ListItem, ListItemText, IconButton 
 import CloseIcon from '@mui/icons-material/Close';
 import { useNavigate } from 'react-router-dom';
 
-function WhatsNew() {
+function HowToUse() {
     const navigate = useNavigate();
 
     const handleClose = () => {
@@ -21,53 +21,52 @@ function WhatsNew() {
                 <IconButton
                     onClick={handleClose}
                     sx={{
-                        display: { xs: 'inline-flex', md: 'none' },
                         position: 'absolute',
                         top: 5,
-                        right: 22,
+                        right: 30,
                     }}
                 >
                     <CloseIcon />
                 </IconButton>
                 <Typography variant="h4" align="center" gutterBottom>
-                    What's New!
+                    How to use!
                 </Typography>
                 <Typography variant="body1" gutterBottom>
-                    Here are the latest updates and new functionalities in ExpenseTracker:
+                    Here is how to use ExpenseTracker:
                 </Typography>
                 <List>
                     <ListItem>
                         <ListItemText
-                            primary="New Dark Mode Enhancements"
-                            secondary="Improved styling for dark mode with custom theme overrides."
+                            primary="Press the + button to add a new expense."
+                            secondary="Enter the expense name and amount, then press the 'Add' button."
                         />
                     </ListItem>
                     <ListItem>
                         <ListItemText
-                            primary="Mobile Bottom Navigation"
-                            secondary="A new fixed bottom navigation on mobile for easy access to Home, History and Add Expense."
+                            primary="View your expenses in the History page."
+                            secondary="You can also filter by date, amount, and category."
                         />
                     </ListItem>
                     <ListItem>
                         <ListItemText
-                            primary="Instructions Modal"
-                            secondary="A modal with instructions on how to use the app now appears on first visit to the Home page."
+                            primary="Use the Dark Mode toggle to switch between light and dark themes."
+                            secondary="The theme will be saved in local storage."
                         />
                     </ListItem>
                     <ListItem>
                         <ListItemText
-                            primary="Improved Filters"
-                            secondary="New filters for expenses including date, amount, and category have been added."
+                            primary="The app is responsive and works on both mobile and desktop."
+                            secondary="The app is also accessible for users with disabilities."
                         />
                     </ListItem>
                     {/* etc*/}
                 </List>
                 <Typography variant="body2" align="center" color="textSecondary">
-                    Stay tuned for more updates!
+                    © 2023 ExpenseTracker. All rights reserved.
                 </Typography>
             </Paper>
         </Container>
     );
 }
 
-export default WhatsNew;
+export default HowToUse;

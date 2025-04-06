@@ -20,6 +20,8 @@ import { Calendar } from 'rsuite';
 import 'rsuite/dist/rsuite.min.css';
 import ExpenseLineChart from '../../components/ExpenseLineChart';
 import exportPDF from '../../components/Export';
+import { Link } from 'react-router-dom';
+import UserDisplay from '../../components/UserDisplay';
 
 function History() {
   const { user, expenses, salary, extraIncome } = useContext(ExpenseContext);
@@ -81,18 +83,24 @@ function History() {
 
   return (
     <>
-      <Typography variant="subtitle1"
-        align="right"
-        gutterBottom
-        sx={(theme) => ({
-          mb: 0,
-          pr: 3,
-          borderBottom: theme.palette.mode === 'dark'
-            ? '2px solid #333c45'
-            : '2px solid #f5f5f5',
-        })}>
-        Signed in as: {user?.username}
-      </Typography>
+      <Box sx={(theme) => ({
+        display: 'flex', justifyContent: 'space-around', alignItems: 'center', pb: 3, borderBottom: theme.palette.mode === 'dark'
+          ? '2px solid #333c45'
+          : '2px solid #f5f5f5',
+      })}>
+        <Link to="/how-to-use" style={{ textDecoration: 'none', background: '#d5d5d591', color: '#000', padding: '5px 10px', borderRadius: 8, margin: '10px', display: 'inline-block' }}>
+          <strong>How to use?</strong>
+        </Link>
+        <Typography variant="subtitle1"
+          align="right"
+          gutterBottom
+          sx={{
+            mb: 0,
+            p: 0,
+          }}>
+          <UserDisplay username={user?.username} />
+        </Typography>
+      </Box>
       <Container sx={{
         mt: 2,
         display: 'flex',

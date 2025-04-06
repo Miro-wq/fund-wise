@@ -11,6 +11,8 @@ import { CssBaseline, AppBar, Toolbar, Typography, Button, Box } from '@mui/mate
 import MobileBottomNav from './components/MobileBottomNav';
 import LogoutIcon from '@mui/icons-material/Logout';
 import WhatsNew from './pages/WhatsNew';
+import ScrollToTop from './components/ScrollToTop';
+import HowToUse from './pages/HowToUse';
 
 
 const PrivateRoute = ({ children }) => {
@@ -56,7 +58,7 @@ function AppRoutes() {
                   borderBottom: location.pathname === "/whats-new" ? '2px solid #fff' : 'none',
                   textDecoration: 'none',
                   textTransform: 'capitalize',
-                  color: '#0080b7',
+                  color: '#2ec0ff',
                   '&:hover': {
                     backgroundColor: 'transparent',
                     color: '#a2a1a1',
@@ -181,6 +183,7 @@ function AppRoutes() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/whats-new" element={<WhatsNew />} />
+          <Route path="/how-to-use" element={<HowToUse />} />
           <Route path="/" element={<PrivateRoute><Home /></PrivateRoute>} />
           <Route path="/history" element={<PrivateRoute><History /></PrivateRoute>} />
         </Routes>
@@ -196,6 +199,7 @@ export default function App() {
       <CssBaseline />
       <ExpenseProvider>
         <Router>
+          <ScrollToTop />
           <AppRoutes />
         </Router>
       </ExpenseProvider>

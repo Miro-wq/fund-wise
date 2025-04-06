@@ -17,6 +17,8 @@ import UtilitiesModal from '../../components/UtilitiesModal';
 import DailyLimitProgress from '../../components/DailyLimitProgress';
 import HowToUseModal from '../../components/HowToUseModal';
 import IncomeDisplay from '../../components/IncomeDisplay';
+import { Link } from 'react-router-dom';
+import UserDisplay from '../../components/UserDisplay';
 
 
 function Home() {
@@ -176,18 +178,24 @@ function Home() {
 
   return (
     <>
-      <Typography variant="subtitle1"
-        align="right"
-        gutterBottom
-        sx={(theme) => ({
-          mb: 0,
-          pr: 3,
-          borderBottom: theme.palette.mode === 'dark'
-            ? '2px solid #333c45'
-            : '2px solid #f5f5f5',
-        })}>
-        Signed in as: {user?.username}
-      </Typography>
+      <Box sx={(theme) => ({
+        display: 'flex', justifyContent: 'space-around', alignItems: 'center', pb: 3, borderBottom: theme.palette.mode === 'dark'
+          ? '2px solid #333c45'
+          : '2px solid #f5f5f5',
+      })}>
+        <Link to="/how-to-use" style={{ textDecoration: 'none', background: '#d5d5d591', color: '#000', padding: '5px 10px', borderRadius: 8, margin: '10px', display: 'inline-block' }}>
+          <strong>How to use?</strong>
+        </Link>
+        <Typography variant="subtitle1"
+          align="right"
+          gutterBottom
+          sx={{
+            mb: 0,
+            p: 0,
+          }}>
+          <UserDisplay username={user?.username} />
+        </Typography>
+      </Box>
       <Container sx={{
         mt: 2,
         display: 'flex',
@@ -236,7 +244,11 @@ function Home() {
             />
           </Paper>
 
-          <Paper elevation={3} sx={{ p: 2, mb: 3 }}>
+          <Paper elevation={3} sx={{
+            display: { xs: 'none', md: 'block' },
+            p: 2,
+            mb: 3,
+          }}>
             <Typography variant="subtitle1" sx={{
               color: (theme) =>
                 theme.palette.mode === 'dark' ? 'undefined' : 'rgb(255 0 0)', marginBottom: '10px', background: (theme) =>
