@@ -58,7 +58,14 @@ export const lightTheme = createTheme({
           },
         },
       },
-    }
+    },
+    MuiToolbar: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#050b16'
+        },
+      },
+    },
   },
 });
 

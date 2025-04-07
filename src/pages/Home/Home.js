@@ -183,8 +183,8 @@ function Home() {
           ? '2px solid #333c45'
           : '2px solid #f5f5f5',
       })}>
-        <Link to="/how-to-use" style={{ textDecoration: 'none', background: '#d5d5d591', color: '#000', padding: '5px 10px', borderRadius: 8, margin: '10px', display: 'inline-block' }}>
-          <strong>How to use?</strong>
+        <Link to="/how-to-use" style={{ textDecoration: 'none', background: '#d5d5d591', padding: '5px 10px', borderRadius: 8, margin: '10px', display: 'inline-block' }}>
+          <Typography variant='p'>How to use?</Typography>
         </Link>
         <Typography variant="subtitle1"
           align="right"

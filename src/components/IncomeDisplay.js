@@ -6,7 +6,7 @@ import { useTheme, useMediaQuery } from '@mui/material';
 export default function IncomeDisplay({ netIncome, salary }) {
   const [openIncomeModal, setOpenIncomeModal] = useState(false);
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   return (
     <>

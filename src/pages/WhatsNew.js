@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Paper, Typography, List, ListItem, ListItemText, IconButton } from '@mui/material';
+import { Container, Paper, Typography, List, ListItem, ListItemText, IconButton, Box } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { useNavigate } from 'react-router-dom';
 
@@ -16,19 +16,15 @@ function WhatsNew() {
     };
 
     return (
-        <Container maxWidth="md" sx={{ mt: 4, position: 'relative' }}>
+        <Container maxWidth="md" sx={{ mt: 4 }}>
             <Paper elevation={3} sx={{ p: 4 }}>
-                <IconButton
-                    onClick={handleClose}
-                    sx={{
-                        display: { xs: 'inline-flex', md: 'none' },
-                        position: 'absolute',
-                        top: 5,
-                        right: 22,
-                    }}
-                >
-                    <CloseIcon />
-                </IconButton>
+                <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end' }}>
+                    <IconButton
+                        onClick={handleClose}
+                    >
+                        <CloseIcon />
+                    </IconButton>
+                </Box>
                 <Typography variant="h4" align="center" gutterBottom>
                     What's New!
                 </Typography>
