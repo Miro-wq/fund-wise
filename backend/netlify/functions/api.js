@@ -18,6 +18,8 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
   .then(() => console.log("Connected to MongoDB via Netlify Function"))
   .catch(err => console.error("Error connecting to MongoDB:", err));
 
+
+//=========authenticate===============================
 //middleware de autentificare
 const authMiddleware = (req, res, next) => {
   const authHeader = req.headers.authorization;
@@ -67,6 +69,8 @@ app.post('/api/register', async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 });
+//=====================================================
+
 
 //endpoint pentru preluarea datelor pentru luna curentă
 app.get('/api/data', authMiddleware, async (req, res) => {
@@ -101,6 +105,8 @@ app.post('/api/salary', authMiddleware, async (req, res) => {
   }
 });
 
+
+//=========functii netlify reset si note===============================
 //netlify/functions/api.js
 app.post('/api/reset', authMiddleware, async (req, res) => {
   console.log("Received body:", req.body);
@@ -117,6 +123,7 @@ app.post('/api/reset', authMiddleware, async (req, res) => {
     if (typeof tv !== 'undefined') user.tv = Number(tv);
     if (typeof phone !== 'undefined') user.phone = Number(phone);
     user.expenses = [];
+    user.notes = [];
     await user.save();
     res.json({ message: 'Income and utilities updated, expenses reset.' });
   } catch (err) {
@@ -125,6 +132,57 @@ app.post('/api/reset', authMiddleware, async (req, res) => {
   }
 });
 
+
+//===========endpoint pentru adăugarea de note si middleware===============================
+//netlify/functions/api.js
+app.post('/api/notes', authMiddleware, async (req, res) => {
+  console.log("Received note:", req.body);
+  const { note } = req.body;
+  try {
+    const user = await User.findById(req.user.id);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    //adauga nota în arrayul de note
+    user.notes.push(note);
+    await user.save();
+    res.json({ message: 'Note added successfully', notes: user.notes });
+  } catch (err) {
+    console.error("Error in /api/notes:", err);
+    res.status(500).json({ message: 'Server error while adding note' });
+  }
+});
+
+app.get('/api/notes', authMiddleware, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.json({ notes: user.notes });
+  } catch (err) {
+    console.error("Error in GET /api/notes:", err);
+    res.status(500).json({ message: 'Server error while fetching notes' });
+  }
+});
+
+app.delete('/api/notes', authMiddleware, async (req, res) => {
+  const { noteIndex } = req.body; //indexul notei de șters
+  try {
+    const user = await User.findById(req.user.id);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    //sterge nota din array-ul user.notes
+    user.notes.splice(noteIndex, 1);
+    await user.save();
+    res.json({ message: 'Note deleted successfully', notes: user.notes });
+  } catch (err) {
+    console.error("Error in DELETE /api/notes:", err);
+    res.status(500).json({ message: 'Server error during note deletion.' });
+  }
+});
+//=====================================================
 
 
 //endpoint pentru adăugarea unei cheltuieli

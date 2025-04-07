@@ -19,6 +19,7 @@ import HowToUseModal from '../../components/HowToUseModal';
 import IncomeDisplay from '../../components/IncomeDisplay';
 import { Link } from 'react-router-dom';
 import UserDisplay from '../../components/UserDisplay';
+import Notes from '../../components/Notes';
 
 
 function Home() {
@@ -375,6 +376,9 @@ function Home() {
             </Box>
           </Paper>
 
+          <Paper elevation={3} sx={{ p: 2, mb: 3 }}>
+            <Notes />
+          </Paper>
 
           <Box>
             <Paper elevation={3} sx={{ mb: { xs: 10, md: 0 }, p: 2 }}>

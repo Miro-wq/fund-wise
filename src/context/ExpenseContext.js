@@ -16,6 +16,7 @@ export const ExpenseProvider = ({ children }) => {
   const [internet, setInternet] = useState("");
   const [tv, setTV] = useState("");
   const [phone, setPhone] = useState("");
+  const [notes, setNotes] = useState([]);
 
 
   //daca este token, se preia datele pentru luna curentă
@@ -36,6 +37,7 @@ export const ExpenseProvider = ({ children }) => {
           setTV(res.data.tv);
           setPhone(res.data.phone);
           setUser(res.data.user);
+          setNotes(res.data.notes);
         })
         .catch((err) => console.error(err));
     }
@@ -54,10 +56,10 @@ export const ExpenseProvider = ({ children }) => {
       .catch(err => console.error(err));
   };
 
-  const updateSalary = (newSalary, newExtraIncome, newRent, newWater, newGas, newElectricity, newInternet, newTV, newPhone) => {
+  const updateSalary = (newSalary, newExtraIncome, newRent, newWater, newGas, newElectricity, newInternet, newTV, newPhone, newNotes) => {
     setSalary(newSalary);
     setExpenses([]);
-    //endpoint pentru a actualiza salariul, venitul suplimentar si utilitățile
+    //endpoint pentru a actualiza salariul, venitul suplimentar si utilitățile + notele
     axios.post('/api/reset', {
       salary: newSalary,
       extraIncome: newExtraIncome,
@@ -67,7 +69,8 @@ export const ExpenseProvider = ({ children }) => {
       electricity: newElectricity,
       internet: newInternet,
       tv: newTV,
-      phone: newPhone
+      phone: newPhone,
+      notes: newNotes
     }, {
       headers: { Authorization: `Bearer ${token}` },
     })
@@ -115,6 +118,7 @@ export const ExpenseProvider = ({ children }) => {
         setExpenses,
         login,
         logout,
+        notes,
       }}
     >
       {children}
