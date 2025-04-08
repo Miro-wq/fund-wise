@@ -184,8 +184,8 @@ function Home() {
           ? '2px solid #333c45'
           : '2px solid #f5f5f5',
       })}>
-        <Link to="/how-to-use" style={{ textDecoration: 'none', background: '#d5d5d591', padding: '5px 10px', borderRadius: 8, margin: '10px', display: 'inline-block' }}>
-          <Typography variant='p'>How to use?</Typography>
+        <Link to="/how-to-use">
+          <Button variant="contained" color="primary">How to use?</Button>
         </Link>
         <Typography variant="subtitle1"
           align="right"
@@ -376,12 +376,12 @@ function Home() {
             </Box>
           </Paper>
 
-          <Paper elevation={3} sx={{ p: 2, mb: 3 }}>
+          <Paper elevation={3} sx={{ p: 2, mb: { xs: 10, md: 0 } }}>
             <Notes />
           </Paper>
 
           <Box>
-            <Paper elevation={3} sx={{ mb: { xs: 10, md: 0 }, p: 2 }}>
+            <Paper elevation={3} sx={{ display: { xs: 'none', md: 'block' }, mb: { xs: 10, md: 0 }, p: 2 }}>
               <Typography variant="h6" gutterBottom>
                 Add New Expense
               </Typography>

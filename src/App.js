@@ -55,18 +55,17 @@ function AppRoutes() {
                 to="/whats-new"
                 sx={{
                   mr: { xs: '0', md: 2 },
-                  borderBottom: location.pathname === "/whats-new" ? '2px solid #fff' : 'none',
                   textDecoration: 'none',
                   textTransform: 'capitalize',
                   color: '#2ec0ff',
                   '&:hover': {
                     backgroundColor: 'transparent',
-                    color: '#a2a1a1',
+                    color: '#0087ff',
                     textDecoration: 'none',
                   },
                   '&:focus, &:active': {
                     textDecoration: 'none',
-                    color: '#fff',
+                    color: '#0087ff',
                     outline: 'none',
                   },
                 }}
