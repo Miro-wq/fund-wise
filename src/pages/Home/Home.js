@@ -97,7 +97,7 @@ function Home() {
   const [openInstructionsModal, setOpenInstructionsModal] = useState(false);
 
   useEffect(() => {
-    //modal pentru a afișa dacă a fost depășită limita zilnică
+    //modal pentru limita zilnică
     const dismissedDate = localStorage.getItem("limitModalDismissed");
     const todayStr = new Date().toDateString();
     if (dailyLimit > 0 && totalExpensesToday > dailyLimit && dismissedDate !== todayStr) {
@@ -105,7 +105,7 @@ function Home() {
     }
   }, [dailyLimit, totalExpensesToday]);
 
-  //modal pentru a afișa instrucțiuni
+  //modal pentru instrucțiuni
   useEffect(() => {
     const hasSeen = localStorage.getItem('hasSeenInstructions');
     if (!hasSeen) {
@@ -167,7 +167,7 @@ function Home() {
   };
 
 
-  //adaugă o cheltuială nouă
+  //cheltuiala noua
   const handleAddExpense = (e) => {
     e.preventDefault();
     if (expenseName && expenseAmount && Number(expenseAmount) > 0) {
@@ -376,7 +376,7 @@ function Home() {
             </Box>
           </Paper>
 
-          <Paper elevation={3} sx={{ p: 2, mb: { xs: 10, md: 0 } }}>
+          <Paper elevation={3} sx={{ p: 2, mb: { xs: 10, md: 3 } }}>
             <Notes />
           </Paper>
 
