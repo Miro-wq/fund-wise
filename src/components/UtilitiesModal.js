@@ -28,6 +28,8 @@ function UtilitiesModal({
   setLocalTV,
   localPhone,
   setLocalPhone,
+  localBank,
+  setLocalBank,
 }) {
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
@@ -103,6 +105,16 @@ function UtilitiesModal({
                 fullWidth
                 value={localPhone}
                 onChange={(e) => setLocalPhone(e.target.value)}
+              />
+            </Grid>
+            <Grid size={{ xs: 12, sm: 6 }}>
+              <TextField
+                label="Bank"
+                type="number"
+                variant="outlined"
+                fullWidth
+                value={localBank}
+                onChange={(e) => setLocalBank(e.target.value)}
               />
             </Grid>
           </Grid>

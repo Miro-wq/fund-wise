@@ -39,6 +39,7 @@ function Home() {
     internet,
     tv,
     phone,
+    bank,
   } = useContext(ExpenseContext);
 
   //state pentru salariu și venit suplimentar
@@ -53,6 +54,7 @@ function Home() {
   const [localInternet, setLocalInternet] = useState("");
   const [localTV, setLocalTV] = useState("");
   const [localPhone, setLocalPhone] = useState("");
+  const [localBank, setLocalBank] = useState("");
 
   //state pentru noua cheltuială
   const [expenseName, setExpenseName] = useState("");
@@ -69,6 +71,7 @@ function Home() {
     Number(internet) +
     Number(tv) +
     Number(phone);
+  Number(bank);
 
   //venit net lunar = salariu - utilități + venit suplimentar
   const netIncome = Number(localSalary) - totalUtilities + Number(localExtraIncome);
@@ -157,6 +160,7 @@ function Home() {
         internet: Number(localInternet) || 0,
         tv: Number(localTV) || 0,
         phone: Number(localPhone) || 0,
+        bank: Number(localBank) || 0,
       },
       { headers: { Authorization: `Bearer ${token}` } }
     )
@@ -294,7 +298,7 @@ function Home() {
               >
                 Click to add monthly utilities
               </Button>
-              {rent || water || gas || electricity || internet || tv || phone ? (
+              {rent || water || gas || electricity || internet || tv || phone || bank ? (
                 <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                   <Typography variant="subtitle1" gutterBottom sx={{ mb: 2, fontWeight: 'bold' }}>
                     Utilities:
@@ -363,9 +367,18 @@ function Home() {
                     <Typography variant="body1" sx={{ m: 0, color: 'rgb(255 0 0)' }}>- {phone} RON</Typography>
                   </Box>
 
+                  <Box sx={(theme) => ({
+                    borderBottom: theme.palette.mode === 'dark'
+                      ? '2px solid #333c45'
+                      : '2px solid #f5f5f5', mb: 1, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'
+                  })}>
+                    <Typography variant="body1">Bank: </Typography>
+                    <Typography variant="body1" sx={{ m: 0, color: 'rgb(255 0 0)' }}>- {bank} RON</Typography>
+                  </Box>
+
                   <Box sx={{ mb: 1, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                     <Typography variant="body1" sx={{ fontWeight: 'bold', }}> Total: </Typography>
-                    <Typography variant="body1" sx={{ m: 0, fontWeight: 'bold' }}>{Number(rent) + Number(water) + Number(gas) + Number(electricity) + Number(internet) + Number(tv) + Number(phone)} RON</Typography>
+                    <Typography variant="body1" sx={{ m: 0, fontWeight: 'bold' }}>{Number(rent) + Number(water) + Number(gas) + Number(electricity) + Number(internet) + Number(tv) + Number(phone) + Number(bank)} RON</Typography>
                   </Box>
 
                 </Box>
@@ -445,6 +458,8 @@ function Home() {
           setLocalTV={setLocalTV}
           localPhone={localPhone}
           setLocalPhone={setLocalPhone}
+          localBank={localBank}
+          setLocalBank={setLocalBank}
         />
         <HowToUseModal open={openInstructionsModal} handleClose={handleCloseModal} />
       </Container>

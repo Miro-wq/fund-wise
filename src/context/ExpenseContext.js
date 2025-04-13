@@ -16,6 +16,7 @@ export const ExpenseProvider = ({ children }) => {
   const [internet, setInternet] = useState("");
   const [tv, setTV] = useState("");
   const [phone, setPhone] = useState("");
+  const [bank, setBank] = useState("");
   const [notes, setNotes] = useState([]);
 
 
@@ -36,6 +37,7 @@ export const ExpenseProvider = ({ children }) => {
           setInternet(res.data.internet);
           setTV(res.data.tv);
           setPhone(res.data.phone);
+          setBank(res.data.bank);
           setUser(res.data.user);
           setNotes(res.data.notes);
         })
@@ -56,7 +58,7 @@ export const ExpenseProvider = ({ children }) => {
       .catch(err => console.error(err));
   };
 
-  const updateSalary = (newSalary, newExtraIncome, newRent, newWater, newGas, newElectricity, newInternet, newTV, newPhone, newNotes) => {
+  const updateSalary = (newSalary, newExtraIncome, newRent, newWater, newGas, newElectricity, newInternet, newTV, newPhone, newBank, newNotes) => {
     setSalary(newSalary);
     setExpenses([]);
     //endpoint pentru a actualiza salariul, venitul suplimentar si utilitățile + notele
@@ -70,6 +72,7 @@ export const ExpenseProvider = ({ children }) => {
       internet: newInternet,
       tv: newTV,
       phone: newPhone,
+      bank: newBank,
       notes: newNotes
     }, {
       headers: { Authorization: `Bearer ${token}` },
@@ -112,6 +115,7 @@ export const ExpenseProvider = ({ children }) => {
         internet,
         tv,
         phone,
+        bank,
         addExpense,
         setSalary: updateSalary,
         setExtraIncome: updateExtraIncome,

@@ -86,6 +86,7 @@ app.get('/api/data', authMiddleware, async (req, res) => {
       internet: user.internet,
       tv: user.tv,
       phone: user.phone,
+      bank: user.bank,
       expenses: user.expenses,
       user: { username: user.username }
     });
@@ -110,7 +111,7 @@ app.post('/api/salary', authMiddleware, async (req, res) => {
 //netlify/functions/api.js
 app.post('/api/reset', authMiddleware, async (req, res) => {
   console.log("Received body:", req.body);
-  const { salary, extraIncome, rent, water, gas, electricity, internet, tv, phone } = req.body;
+  const { salary, extraIncome, rent, water, gas, electricity, internet, tv, phone, bank } = req.body;
   try {
     const user = await User.findById(req.user.id);
     if (typeof salary !== 'undefined') user.salary = salary;
@@ -122,6 +123,7 @@ app.post('/api/reset', authMiddleware, async (req, res) => {
     if (typeof internet !== 'undefined') user.internet = Number(internet);
     if (typeof tv !== 'undefined') user.tv = Number(tv);
     if (typeof phone !== 'undefined') user.phone = Number(phone);
+    if (typeof bank !== 'undefined') user.bank = Number(bank);
     user.expenses = [];
     user.notes = [];
     await user.save();

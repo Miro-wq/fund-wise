@@ -18,6 +18,7 @@ const UserSchema = new mongoose.Schema({
   internet: { type: Number, default: 0 },
   tv: { type: Number, default: 0 },
   phone: { type: Number, default: 0 },
+  bank: { type: Number, default: 0 },
   expenses: [ExpenseSchema],
   notes: { type: [String], default: [] }
 });
