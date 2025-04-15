@@ -136,7 +136,6 @@ app.post('/api/reset', authMiddleware, async (req, res) => {
 
 
 //===========endpoint pentru adăugarea de note si middleware===============================
-//netlify/functions/api.js
 app.post('/api/notes', authMiddleware, async (req, res) => {
   console.log("Received note:", req.body);
   const { note } = req.body;
@@ -185,6 +184,25 @@ app.delete('/api/notes', authMiddleware, async (req, res) => {
   }
 });
 //=====================================================
+
+
+//===========reminders=========================================
+app.post('/api/reminder', authMiddleware, async (req, res) => {
+  console.log("Received reminder:", req.body);
+  const { date, reminder } = req.body;
+  try {
+    const user = await User.findById(req.user.id);
+    if (!user) return res.status(404).json({ message: 'User not found' });
+    
+    user.notes.push(`Memento (${new Date(date).toLocaleDateString()}): ${reminder}`);
+    await user.save();
+    res.json({ message: 'Reminder added successfully', notes: user.notes });
+  } catch (err) {
+    console.error("Error in /api/reminder:", err);
+    res.status(500).json({ message: 'Server error during reminder addition.' });
+  }
+});
+//==========================================================
 
 
 //endpoint pentru adăugarea unei cheltuieli

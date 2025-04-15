@@ -22,6 +22,7 @@ import ExpenseLineChart from '../../components/ExpenseLineChart';
 import exportPDF from '../../components/Export';
 import { Link } from 'react-router-dom';
 import UserDisplay from '../../components/UserDisplay';
+import ReminderModal from '../../components/ReminderModal';
 
 function History() {
   const { user, expenses, salary, extraIncome } = useContext(ExpenseContext);
@@ -35,6 +36,8 @@ function History() {
   const [endDate, setEndDate] = useState('');
 
   const [selectedDate, setSelectedDate] = useState(null);
+
+  const [openReminderModal, setOpenReminderModal] = useState(false);
 
   //filtru avansat
   const filteredExpenses = useMemo(() => {
@@ -89,7 +92,7 @@ function History() {
           : '2px solid #f5f5f5',
       })}>
         <Link to="/how-to-use">
-          <Button variant="contained" color="primary" sx={{ textTransform: 'capitalize'}} >ajutor!</Button>
+          <Button variant="contained" color="primary" sx={{ textTransform: 'capitalize' }} >ajutor!</Button>
         </Link>
         <Typography variant="subtitle1"
           align="right"
@@ -262,9 +265,17 @@ function History() {
                 onChange={setSelectedDate}
               />
               {selectedDate && (
-                <Button color="primary" onClick={() => setSelectedDate(null)} variant="contained" sx={{ mt: 1 }}>
-                  Ștergeți data selectată
-                </Button>
+                <Box sx={{ mt: 1, display: 'flex', flexDirection: 'column', gap: 3 }}>
+                  <Button color="primary" onClick={() => setSelectedDate(null)} variant="contained" sx={{ mt: 1 }}>
+                    Ștergeți data selectată
+                  </Button>
+                  <Button
+                    onClick={() => setOpenReminderModal(true)}
+                    variant="contained"
+                  >
+                    adăugați un memento
+                  </Button>
+                </Box>
               )}
             </Box>
           </Paper>
@@ -283,7 +294,7 @@ function History() {
                 </Typography>
               </Paper>
             ) : (
-              <Paper elevation={3} sx={{ mb: { xs: 10, md: 0 }, p: 2 }}>
+              <Paper elevation={3} sx={{ mb: { xs: 10, md: 3 }, p: 2 }}>
                 <Typography variant="subtitle1" gutterBottom sx={{ mb: 2, fontWeight: 'bold' }}>
                   Intrări cheltuieli
                 </Typography>
@@ -291,7 +302,7 @@ function History() {
                 <TableContainer component={Paper} sx={{
                   overflowX: { xs: 'auto', md: 'unset' },
                   overflowY: { xs: 'unset', md: 'auto' },
-                  maxHeight: { xs: 'unset', md: '11em' }
+                  maxHeight: { xs: 'unset', md: '13em' }
                 }}
                 >
                   <Table>
@@ -323,6 +334,11 @@ function History() {
               </Paper>
             )
           )}
+          <ReminderModal
+            open={openReminderModal}
+            onClose={() => setOpenReminderModal(false)}
+            selectedDate={selectedDate}
+          />
         </Box>
       </Container>
     </>

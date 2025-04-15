@@ -20,6 +20,7 @@ import IncomeDisplay from '../../components/IncomeDisplay';
 import { Link } from 'react-router-dom';
 import UserDisplay from '../../components/UserDisplay';
 import Notes from '../../components/Notes';
+import TodayReminderModal from '../../components/TodayReminderModal';
 
 
 function Home() {
@@ -189,7 +190,7 @@ function Home() {
           : '2px solid #f5f5f5',
       })}>
         <Link to="/how-to-use">
-          <Button variant="contained" color="primary" sx={{ textTransform: 'capitalize'}} >ajutor!</Button>
+          <Button variant="contained" color="primary" sx={{ textTransform: 'capitalize' }} >ajutor!</Button>
         </Link>
         <Typography variant="subtitle1"
           align="right"
@@ -207,6 +208,7 @@ function Home() {
         flexDirection: { xs: 'column', md: 'row' },
       }}
       >
+        <TodayReminderModal />
         <Box sx={{ mr: { xs: 0, md: 3 } }}>
           <Paper elevation={3} sx={{ p: 2, mb: 3 }}>
             <Typography variant="h5" align="left" gutterBottom>
@@ -394,7 +396,7 @@ function Home() {
           </Paper>
 
           <Box>
-            <Paper elevation={3} sx={{ display: { xs: 'none', md: 'block' }, mb: { xs: 10, md: 0 }, p: 2 }}>
+            <Paper elevation={3} sx={{ display: { xs: 'none', md: 'block' }, mb: { xs: 10, md: 3 }, p: 2 }}>
               <Typography variant="h6" gutterBottom>
                 Adaugă o cheltuială nouă
               </Typography>
