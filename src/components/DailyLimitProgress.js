@@ -11,7 +11,7 @@ function DailyLimitProgress({ currentExpense, dailyLimit }) {
         mb: 2, background: 'rgb(219 234 254)', padding: '5px', textAlign: 'center', borderRadius: '5px', color: (theme) =>
           theme.palette.mode === 'dark' ? '#000' : undefined
       }}>
-        {currentExpense} RON spent today from {dailyLimit} RON ( {progressValue.toFixed(0)}% )
+        {currentExpense} RON cheltuiți astăzi din {dailyLimit} RON ( {progressValue.toFixed(0)}% )
       </Typography>
       <LinearProgress
         variant="determinate"

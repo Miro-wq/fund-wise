@@ -43,17 +43,17 @@ function Notes() {
 
     return (
         <Box sx={{ mt: 2 }}>
-            <Typography variant="h6">Notes</Typography>
+            <Typography variant="h6">Notiţe</Typography>
             <Box sx={{ display: 'flex', gap: 2, mt: 1 }}>
                 <TextField
-                    label="Add note"
+                    label="Adaugă o notă"
                     variant="outlined"
                     fullWidth
                     value={note}
                     onChange={(e) => setNote(e.target.value)}
                 />
                 <Button variant="contained" onClick={handleAddNote}>
-                    Add
+                    Adaugă
                 </Button>
             </Box>
             {notes.length > 0 && (

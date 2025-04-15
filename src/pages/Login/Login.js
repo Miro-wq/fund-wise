@@ -31,17 +31,18 @@ function Login() {
   return (
     <Container maxWidth="sm">
       <Typography variant="h4" align="center" gutterBottom>
-        Welcome to ExpenseTracker
+        Bine ați venit la ExpenseTracker
       </Typography>
       <Typography variant="body1" align="center" color="textSecondary" gutterBottom>
-        Sign in to your account or create a new one
+        Conectați-vă la cont sau creați unul nou
       </Typography>
       <Paper elevation={3} sx={{ p: 4, mt: 8 }}>
         <Typography variant="h5" align="left" gutterBottom>
-          Login
+          Conectare
         </Typography>
         <Typography variant="body1" align="left" color="textSecondary" gutterBottom>
-          Enter your credentials to access your account                </Typography>
+          Introduceți datele de conectare pentru a vă accesa contul
+        </Typography>
         <Box
           component="form"
           onSubmit={handleLogin}
@@ -53,14 +54,14 @@ function Login() {
           }}
         >
           <TextField
-            label="username"
+            label="utilizator"
             variant="outlined"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
           />
           <TextField
-            label="password"
+            label="parolă"
             type="password"
             variant="outlined"
             value={password}
@@ -73,17 +74,17 @@ function Login() {
             </Typography>
           )}
           <Button type="submit" variant="contained" color="primary">
-            Login
+            Conectare
           </Button>
         </Box>
         <Typography variant="body2" align="center" sx={{ mt: 2 }}>
-          Don't have an account?{' '}
+          Nu aveți un cont?{' '}
           <Link to="/register" style={{ textDecoration: 'none', color: '#1976d2' }}>
-            Register
+            Înregistrați-vă
           </Link>
         </Typography>
         <Typography variant="body2" align="center" sx={{ mt: 2 }}>
-          Check out <Link to="/whats-new" style={{ textDecoration: 'none', color: '#1976d2' }}>What's New!</Link> page for the latest updates.
+          Consultă pagina <Link to="/whats-new" style={{ textDecoration: 'none', color: '#1976d2' }}>Noutăți!</Link> pentru cele mai recente actualizări.
         </Typography>
       </Paper>
     </Container>

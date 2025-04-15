@@ -189,7 +189,7 @@ function Home() {
           : '2px solid #f5f5f5',
       })}>
         <Link to="/how-to-use">
-          <Button variant="contained" color="primary">How to use?</Button>
+          <Button variant="contained" color="primary" sx={{ textTransform: 'capitalize'}} >ajutor!</Button>
         </Link>
         <Typography variant="subtitle1"
           align="right"
@@ -210,7 +210,7 @@ function Home() {
         <Box sx={{ mr: { xs: 0, md: 3 } }}>
           <Paper elevation={3} sx={{ p: 2, mb: 3 }}>
             <Typography variant="h5" align="left" gutterBottom>
-              Monthly Overview
+              Sumar lunar
             </Typography>
 
             <Box sx={{
@@ -230,14 +230,14 @@ function Home() {
                 m: 0, fontWeight: 'bold', background: 'rgb(255 212 212)', padding: '1rem', textAlign: 'center', borderRadius: '5px', mt: 2, color: (theme) =>
                   theme.palette.mode === 'dark' ? '#000' : undefined
               }}>
-                Expenses for Today: {expenses.length > 0 ? totalExpensesToday : 0} RON
+                Cheltuieli efectuate astăzi: {expenses.length > 0 ? totalExpensesToday : 0} RON
               </Typography>
 
               <Typography variant="subtitle1" sx={{
                 m: 0, fontWeight: 'bold', background: 'rgb(212 255 225)', padding: '1rem', textAlign: 'center', borderRadius: '5px', mt: 2, color: (theme) =>
                   theme.palette.mode === 'dark' ? '#000' : undefined
               }}>
-                Daily Limit: {localSalary ? dailyLimit.toFixed(2) : ""} RON
+                Limită zilnică: {localSalary ? dailyLimit.toFixed(2) : ""} RON
               </Typography>
             </Box>
           </Paper>
@@ -258,15 +258,15 @@ function Home() {
               color: (theme) =>
                 theme.palette.mode === 'dark' ? 'undefined' : 'rgb(255 0 0)', marginBottom: '10px', background: (theme) =>
                   theme.palette.mode === 'dark' ? '#26436d' : '#f5f5f5', padding: '10px', textAlign: 'center', borderRadius: '5px'
-            }}>Before inserting new income, please export your expenses as a PDF from the History page.</Typography>
+            }}>Înainte de a introduce venituri noi, vă rugăm să exportați cheltuielile în format PDF din pagina Istoric.</Typography>
 
             <Typography variant="h6" gutterBottom>
-              Set Monthly Income and Utilities
+              Setați venitul lunar și utilitățile
             </Typography>
 
             <Box component="form" onSubmit={handleSalarySubmit} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
               <TextField
-                label="Monthly Income"
+                label="Venit lunar"
                 type="number"
                 variant="outlined"
                 value={localSalary}
@@ -278,9 +278,9 @@ function Home() {
                 color: (theme) =>
                   theme.palette.mode === 'dark' ? 'undefined' : 'rgb(255 0 0)', marginBottom: '10px', background: (theme) =>
                     theme.palette.mode === 'dark' ? '#26436d' : '#f5f5f5', padding: '10px', textAlign: 'center', borderRadius: '5px'
-              }}>CAUTION! new income or extra income will reset all expenses and history!</Typography>
+              }}>ATENȚIE! Veniturile noi sau veniturile suplimentare vor reseta toate cheltuielile și istoricul!</Typography>
 
-              <TextField label="Extra Income" type="number" variant="outlined" value={localExtraIncome} onChange={(e) => setLocalExtraIncome(e.target.value)} />
+              <TextField label="Venit suplimentar" type="number" variant="outlined" value={localExtraIncome} onChange={(e) => setLocalExtraIncome(e.target.value)} />
             </Box>
           </Paper>
         </Box>
@@ -288,7 +288,7 @@ function Home() {
         <Box sx={{ maxWidth: { xs: '100%', md: '24em' } }}>
           <Paper elevation={3} sx={{ p: 2, mb: 3 }}>
             <Typography variant="subtitle1" gutterBottom>
-              Utilities (paid at the beginning of the month)
+              Utilități (plătite la începutul lunii)
             </Typography>
 
             <Box component="form" onSubmit={() => { }} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
@@ -296,12 +296,12 @@ function Home() {
                 variant="outlined"
                 onClick={() => setOpenUtilitiesModal(true)}
               >
-                Click to add monthly utilities
+                Apăsați pentru adăugare
               </Button>
               {rent || water || gas || electricity || internet || tv || phone || bank ? (
                 <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                   <Typography variant="subtitle1" gutterBottom sx={{ mb: 2, fontWeight: 'bold' }}>
-                    Utilities:
+                    Utilităţi:
                   </Typography>
 
                   <Box sx={(theme) => ({
@@ -309,7 +309,7 @@ function Home() {
                       ? '2px solid #333c45'
                       : '2px solid #f5f5f5', mb: 1, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'
                   })}>
-                    <Typography variant="body1">Rent:</Typography>
+                    <Typography variant="body1">Chirie:</Typography>
                     <Typography variant="body1" sx={{ m: 0, color: 'rgb(255 0 0)' }}>- {rent} RON</Typography>
                   </Box>
 
@@ -318,7 +318,7 @@ function Home() {
                       ? '2px solid #333c45'
                       : '2px solid #f5f5f5', mb: 1, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'
                   })}>
-                    <Typography variant="body1">Water:</Typography>
+                    <Typography variant="body1">Apă:</Typography>
                     <Typography variant="body1" sx={{ m: 0, color: 'rgb(255 0 0)' }}>- {water} RON</Typography>
                   </Box>
 
@@ -327,7 +327,7 @@ function Home() {
                       ? '2px solid #333c45'
                       : '2px solid #f5f5f5', mb: 1, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'
                   })}>
-                    <Typography variant="body1">Gas: </Typography>
+                    <Typography variant="body1">Gaz: </Typography>
                     <Typography variant="body1" sx={{ m: 0, color: 'rgb(255 0 0)' }}>- {gas} RON</Typography>
                   </Box>
 
@@ -336,7 +336,7 @@ function Home() {
                       ? '2px solid #333c45'
                       : '2px solid #f5f5f5', mb: 1, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'
                   })}>
-                    <Typography variant="body1">Electricity:</Typography>
+                    <Typography variant="body1">Electricitate:</Typography>
                     <Typography variant="body1" sx={{ m: 0, color: 'rgb(255 0 0)' }}>- {electricity} RON</Typography>
                   </Box>
 
@@ -363,7 +363,7 @@ function Home() {
                       ? '2px solid #333c45'
                       : '2px solid #f5f5f5', mb: 1, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'
                   })}>
-                    <Typography variant="body1">Phone: </Typography>
+                    <Typography variant="body1">Telefon: </Typography>
                     <Typography variant="body1" sx={{ m: 0, color: 'rgb(255 0 0)' }}>- {phone} RON</Typography>
                   </Box>
 
@@ -372,7 +372,7 @@ function Home() {
                       ? '2px solid #333c45'
                       : '2px solid #f5f5f5', mb: 1, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'
                   })}>
-                    <Typography variant="body1">Bank: </Typography>
+                    <Typography variant="body1">Bancă: </Typography>
                     <Typography variant="body1" sx={{ m: 0, color: 'rgb(255 0 0)' }}>- {bank} RON</Typography>
                   </Box>
 
@@ -384,7 +384,7 @@ function Home() {
                 </Box>
               ) : null}
               <Button type="submit" variant="contained" color="primary">
-                Save Income & Utilities
+                Salvează veniturile și utilitățile
               </Button>
             </Box>
           </Paper>
@@ -396,11 +396,11 @@ function Home() {
           <Box>
             <Paper elevation={3} sx={{ display: { xs: 'none', md: 'block' }, mb: { xs: 10, md: 0 }, p: 2 }}>
               <Typography variant="h6" gutterBottom>
-                Add New Expense
+                Adaugă o cheltuială nouă
               </Typography>
               <Box component="form" onSubmit={handleAddExpense} sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
                 <TextField
-                  label="Expense Name"
+                  label="Nume cheltuială"
                   variant="outlined"
                   value={expenseName}
                   onChange={(e) => setExpenseName(e.target.value)}
@@ -408,7 +408,7 @@ function Home() {
                   fullWidth
                 />
                 <TextField
-                  label="Amount"
+                  label="Sumă"
                   type="number"
                   variant="outlined"
                   value={expenseAmount}
@@ -417,7 +417,7 @@ function Home() {
                   fullWidth
                 />
                 <Button type="submit" variant="contained" color="primary">
-                  Add Expense
+                  Adaugă
                 </Button>
               </Box>
             </Paper>
@@ -425,18 +425,18 @@ function Home() {
         </Box>
 
         <Dialog open={openModal} onClose={() => setOpenModal(false)}>
-          <DialogTitle>Daily limit exceeded</DialogTitle>
+          <DialogTitle>Limita zilnică depășită</DialogTitle>
           <DialogContent>
             <Typography>
-              You've exceeded your daily spending limit! Please review your expenses.
+              Ați depășit limita zilnică de cheltuieli! Vă rugăm să vă revizuiți cheltuielile.
             </Typography>
           </DialogContent>
           <DialogActions>
             <Button onClick={() => setOpenModal(false)} color="primary">
-              Close
+              Închide
             </Button>
             <Button onClick={handleDismissForToday} color="primary">
-              Don't show again for today
+              Nu mai arăta astăzi
             </Button>
           </DialogActions>
         </Dialog>

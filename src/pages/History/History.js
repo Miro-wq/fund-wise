@@ -89,7 +89,7 @@ function History() {
           : '2px solid #f5f5f5',
       })}>
         <Link to="/how-to-use">
-          <Button variant="contained" color="primary">How to use?</Button>
+          <Button variant="contained" color="primary" sx={{ textTransform: 'capitalize'}} >ajutor!</Button>
         </Link>
         <Typography variant="subtitle1"
           align="right"
@@ -110,41 +110,41 @@ function History() {
         <Box sx={{ mr: { xs: 0, md: 3 } }}>
           <Paper elevation={3} sx={{ p: 2, mb: 3 }}>
             <Typography variant="h5" align="left" gutterBottom>
-              Income
+              Venit
             </Typography>
 
             <Typography variant="subtitle1" sx={{
               m: 0, fontWeight: 'bold', background: 'rgb(208 229 255)', padding: '1rem', textAlign: 'center', borderRadius: '5px', mt: 2, color: (theme) =>
                 theme.palette.mode === 'dark' ? '#000' : undefined
             }}>
-              Monthly Income: {salary} RON
+              Venit lunar: {salary} RON
             </Typography>
 
             <Typography variant="subtitle1" sx={{
               m: 0, fontWeight: 'bold', background: 'rgb(255 207 236)', padding: '1rem', textAlign: 'center', borderRadius: '5px', mt: 2, color: (theme) =>
                 theme.palette.mode === 'dark' ? '#000' : undefined
             }}>
-              Additional Income: {extraIncome} RON
+              Venituri suplimentare: {extraIncome} RON
             </Typography>
           </Paper>
 
           <Box sx={{ mb: 3, display: 'flex', justifyContent: 'flex-end' }}>
             <Button variant="contained" color="primary" onClick={() => exportPDF(expenses)}>
-              Export PDF
+              Exportă PDF
             </Button>
           </Box>
 
           <Paper elevation={3} sx={{ p: 2, mb: 3 }}>
             <Typography variant="h6" gutterBottom sx={{ mb: 3 }}>
-              Filter Expenses
+              Filtrați cheltuielile
             </Typography>
             <Typography variant="subtitle1" gutterBottom sx={{ mb: 2, fontWeight: 'bold' }}>
-              Date Range
+              Interval de date
             </Typography>
 
             <Box sx={{ mb: 3, display: 'flex', gap: '16px' }}>
               <TextField
-                label="From date"
+                label="Din"
                 variant="outlined"
                 fullWidth
                 type="date"
@@ -153,7 +153,7 @@ function History() {
                 InputLabelProps={{ shrink: true }}
               />
               <TextField
-                label="To date"
+                label="Până la"
                 variant="outlined"
                 fullWidth
                 type="date"
@@ -164,7 +164,7 @@ function History() {
             </Box>
 
             <Typography variant="subtitle1" gutterBottom sx={{ mb: 2, fontWeight: 'bold' }}>
-              Category
+              Categorie
             </Typography>
 
             <Box sx={{ mb: 3 }}>
@@ -176,7 +176,7 @@ function History() {
                 variant="outlined"
               >
                 <MenuItem value="">
-                  <em>All categories</em>
+                  <em>Toate categoriile</em>
                 </MenuItem>
                 {categories.map((cat, index) => (
                   <MenuItem key={index} value={cat}>
@@ -187,12 +187,12 @@ function History() {
             </Box>
 
             <Typography variant="subtitle1" gutterBottom sx={{ mb: 2, fontWeight: 'bold' }}>
-              Amount Range
+              Interval de sume
             </Typography>
 
             <Box sx={{ mb: 3, display: 'flex', gap: '16px' }}>
               <TextField
-                label="Minimum value"
+                label="Valoare minimă"
                 variant="outlined"
                 fullWidth
                 type="number"
@@ -200,7 +200,7 @@ function History() {
                 onChange={(e) => setMinValue(e.target.value)}
               />
               <TextField
-                label="Maximum value"
+                label="Valoare maximă"
                 variant="outlined"
                 fullWidth
                 type="number"
@@ -210,12 +210,12 @@ function History() {
             </Box>
 
             <Typography variant="subtitle1" gutterBottom sx={{ mb: 2, fontWeight: 'bold' }}>
-              Keyword
+              Cuvânt cheie
             </Typography>
 
             <Box sx={{ mb: 3, display: 'flex', justifyContent: 'flex-end' }}>
               <TextField
-                label="Search by name"
+                label="Caută cuvânt cheie"
                 variant="outlined"
                 fullWidth
                 value={searchTerm || ''}
@@ -236,7 +236,7 @@ function History() {
                   variant="contained"
                   sx={{ mt: 1 }}
                 >
-                  Clear Filter
+                  Ștergeți filtrele
                 </Button>
               )}
             </Box>
@@ -255,7 +255,7 @@ function History() {
           }}>
             <Box sx={{ mb: 3, display: 'flex', flexDirection: 'column' }}>
               <Typography variant="h6" gutterBottom sx={{ mb: 3 }}>
-                Calendar View
+                Vizualizare calendaristică
               </Typography>
               <Calendar bordered
                 value={selectedDate}
@@ -263,7 +263,7 @@ function History() {
               />
               {selectedDate && (
                 <Button color="primary" onClick={() => setSelectedDate(null)} variant="contained" sx={{ mt: 1 }}>
-                  Clear Date Filter
+                  Ștergeți data selectată
                 </Button>
               )}
             </Box>
@@ -272,20 +272,20 @@ function History() {
           {expenses.length === 0 ? (
             <Paper elevation={3} sx={{ p: 2, mb: 10 }}>
               <Typography variant="body1" sx={{ textAlign: 'center' }}>
-                No expense data available. Please add some expenses to see the history.
+                Nu sunt disponibile date despre cheltuieli. Vă rugăm să adăugați câteva cheltuieli pentru a vedea istoricul.
               </Typography>
             </Paper>
           ) : (
             filteredExpenses.length === 0 ? (
               <Paper elevation={3} sx={{ mb: { xs: 10, md: 0 }, p: 2 }}>
                 <Typography variant="body1" sx={{ textAlign: 'center' }}>
-                  No expense data available.
+                  Nu există date disponibile după parametrul căutat!
                 </Typography>
               </Paper>
             ) : (
               <Paper elevation={3} sx={{ mb: { xs: 10, md: 0 }, p: 2 }}>
                 <Typography variant="subtitle1" gutterBottom sx={{ mb: 2, fontWeight: 'bold' }}>
-                  Expense Entries
+                  Intrări cheltuieli
                 </Typography>
 
                 <TableContainer component={Paper} sx={{
@@ -297,10 +297,10 @@ function History() {
                   <Table>
                     <TableHead>
                       <TableRow>
-                        <TableCell>Name</TableCell>
-                        <TableCell>Amount (RON)</TableCell>
-                        <TableCell>Category</TableCell>
-                        <TableCell>Date</TableCell>
+                        <TableCell>Nume</TableCell>
+                        <TableCell>Sumă (RON)</TableCell>
+                        <TableCell>Categorie</TableCell>
+                        <TableCell>Dată</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>

@@ -26,66 +26,67 @@ function WhatsNew() {
                     </IconButton>
                 </Box>
                 <Typography variant="h4" align="center" gutterBottom>
-                    What's New!
+                    Ce mai este nou!
                 </Typography>
                 <Typography variant="body1" align="center" gutterBottom>
-                    Here are the latest updates and new functionalities in ExpenseTracker:
+                    Iată cele mai recente actualizări și noi funcționalități din ExpenseTracker:
                 </Typography>
                 <Typography variant='body1' sx={{
                     color: (theme) =>
                         theme.palette.mode === 'dark' ? 'undefined' : 'rgb(255 0 0)', background: (theme) =>
                             theme.palette.mode === 'dark' ? '#26436d' : '#f5f5f5', padding: '10px', textAlign: 'center', borderRadius: '5px'
                 }}>
-                    Before using the app, please read the "How to Use" section for a detailed guide.
+                    Înainte de a utiliza aplicația, vă rugăm să citiți secțiunea "Utilizare" pentru un ghid detaliat.
 
                 </Typography>
                 <List>
                     <ListItem>
                         <ListItemText
-                            primary="New Dark Mode Enhancements"
-                            secondary="- Improved styling for dark mode, including a new logo."
+                            primary="Îmbunătățiri noi pentru modul întunecat"
+                            secondary="- Stilizare îmbunătățită pentru modul întunecat, incluzând un nou logo."
                         />
                     </ListItem>
                     <ListItem>
                         <ListItemText
-                            primary="Mobile Bottom Navigation with Quick Add Expense Button"
-                            secondary="- A new fixed bottom navigation for mobile devices provides easy access to Home, History, and Add Expense."
+                            primary="Navigare inferioară fixă pentru mobil cu buton rapid pentru adăugarea cheltuielilor"
+                            secondary="- Navigare fixă în partea de jos a ecranului pentru dispozitive mobile, oferind acces rapid la Acasă, Istoric și Adaugă Cheltuială."
                         />
                     </ListItem>
                     <ListItem>
                         <ListItemText
-                            primary="Instructions"
-                            secondary="- A quick view page with instructions on how to use the app now appears upon your first visit to the Home page, and can be accessed later on either the Home or History page."
+                            primary="Instrucțiuni"
+                            secondary="- O pagină de vizualizare rapidă cu instrucțiuni despre cum se utilizează aplicația apare la prima accesare a paginii Acasă și poate fi accesată ulterior din paginile Acasă sau Istoric."
                         />
                     </ListItem>
                     <ListItem>
                         <ListItemText
-                            primary="Improved Filters"
-                            secondary="- New filters for expenses including date, amount, and category have been added."
+                            primary="Filtre îmbunătățite"
+                            secondary="- Au fost adăugate noi filtre pentru cheltuieli, incluzând data, suma și categoria."
                         />
                     </ListItem>
                     <ListItem>
                         <ListItemText
-                            primary="Calendar Function Added"
-                            secondary="- A calendar function has been added for quick and easy date searches."
+                            primary="Funcție calendar adăugată"
+                            secondary="- A fost adăugată o funcție de calendar pentru căutări rapide și ușoare în funcție de dată."
                         />
                     </ListItem>
                     <ListItem>
                         <ListItemText
-                            primary="Daily Limit Notification Added"
-                            secondary="- When you exceed your daily limit, a prompt alert notification will appear. You can postpone the notification for one day or dismiss it temporarily, but it will reappear when you return to the app."
+                            primary="Notificare pentru depășirea limitei zilnice adăugată"
+                            secondary="- Când depășiți limita zilnică, va apărea o notificare de avertizare promptă. Puteți amâna notificarea pentru o zi sau o puteți respinge temporar, însă aceasta va reapărea la revenirea în aplicație."
                         />
                     </ListItem>
                     <ListItem>
                         <ListItemText
-                            primary="Upcoming Translations:"
-                            secondary="- Soon, translations into multiple languages will be implemented, allowing the app to be displayed in your preferred language."
+                            primary="Traduceri viitoare:"
+                            secondary="- În curând, vor fi implementate traduceri în mai multe limbi, permițând afișarea aplicației în limba preferată."
                         />
                     </ListItem>
                 </List>
                 <Typography variant="body2" align="center" color="textSecondary">
-                    Stay tuned for more updates!
+                    Rămâneți la curent pentru mai multe actualizări!
                 </Typography>
+
             </Paper>
         </Container>
     );

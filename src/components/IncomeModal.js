@@ -5,7 +5,7 @@ import { ExpenseContext } from '../context/ExpenseContext';
 
 function IncomeModal({ open, onClose }) {
   const { salary, extraIncome, setSalary, setExtraIncome } = useContext(ExpenseContext);
-  
+
   //pt stari temporare pentru input, inițial preluate din context
   const [tempSalary, setTempSalary] = useState(salary);
   const [tempExtraIncome, setTempExtraIncome] = useState(extraIncome);
@@ -27,10 +27,10 @@ function IncomeModal({ open, onClose }) {
 
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
-      <DialogTitle>Update Income</DialogTitle>
+      <DialogTitle>Actualizați veniturile</DialogTitle>
       <DialogContent dividers>
         <TextField
-          label="Monthly Income"
+          label="Venit lunar"
           type="number"
           fullWidth
           margin="normal"
@@ -38,7 +38,7 @@ function IncomeModal({ open, onClose }) {
           onChange={(e) => setTempSalary(e.target.value)}
         />
         <TextField
-          label="Additional Income"
+          label="Venituri suplimentare"
           type="number"
           fullWidth
           margin="normal"
@@ -47,9 +47,9 @@ function IncomeModal({ open, onClose }) {
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>Cancel</Button>
+        <Button onClick={onClose}>Anulează</Button>
         <Button onClick={handleSave} variant="contained" color="primary">
-          Save
+          Salvează
         </Button>
       </DialogActions>
     </Dialog>

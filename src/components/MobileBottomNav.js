@@ -55,18 +55,18 @@ function MobileBottomNav() {
                     showLabels
                 >
                     <BottomNavigationAction
-                        label="Home"
+                        label="Acasă"
                         icon={<HomeIcon />}
                         component={Link}
                         to="/"
                     />
                     <BottomNavigationAction
-                        label="Add"
+                        label="Adaugă"
                         icon={<AddIcon />}
                         onClick={() => setOpenModal(true)}
                     />
                     <BottomNavigationAction
-                        label="History"
+                        label="Istoric"
                         icon={<HistoryIcon />}
                         component={Link}
                         to="/history"
@@ -75,17 +75,17 @@ function MobileBottomNav() {
             </Paper>
 
             <Dialog open={openModal} onClose={() => setOpenModal(false)}>
-                <DialogTitle>Add New Expense</DialogTitle>
+                <DialogTitle>Adăugați cheltuieli noi</DialogTitle>
                 <DialogContent>
                     <TextField
-                        label="Expense Name"
+                        label="Nume cheltuială"
                         fullWidth
                         sx={{ mb: 2, mt: 1 }}
                         value={expenseName}
                         onChange={(e) => setExpenseName(e.target.value)}
                     />
                     <TextField
-                        label="Amount"
+                        label="Sumă"
                         type="number"
                         fullWidth
                         value={expenseAmount}
@@ -94,9 +94,9 @@ function MobileBottomNav() {
                     {/*se poate adăuga și alte câmpuri(ex: categorie) */}
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={() => setOpenModal(false)}>Cancel</Button>
+                    <Button onClick={() => setOpenModal(false)}>Anulează</Button>
                     <Button variant="contained" onClick={handleAddExpense}>
-                        Add
+                        Salvează
                     </Button>
                 </DialogActions>
             </Dialog>

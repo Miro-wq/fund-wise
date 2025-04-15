@@ -39,7 +39,7 @@ function ExpenseLineChart({ expenses }) {
         labels,
         datasets: [
             {
-                label: 'Daily expenses',
+                label: 'Cheltuieli zilnice',
                 data: dataValues,
                 fill: false,
                 borderColor: 'rgb(75, 192, 192)',
@@ -56,7 +56,7 @@ function ExpenseLineChart({ expenses }) {
             },
             title: {
                 display: true,
-                text: 'Evolution of daily expenses',
+                text: 'Evoluția cheltuielilor zilnice',
             },
         },
     };

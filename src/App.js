@@ -70,7 +70,7 @@ function AppRoutes() {
                   },
                 }}
               >
-                What's New!
+                Noutăți!
               </Button>
               <Button
                 color="inherit"
@@ -94,7 +94,7 @@ function AppRoutes() {
                   },
                 }}
               >
-                Home
+                Acasă
               </Button>
               <Button
                 color="inherit"
@@ -118,7 +118,7 @@ function AppRoutes() {
                   },
                 }}
               >
-                History
+                Istoric
               </Button>
               <Button color="inherit" onClick={logout}
                 sx={{
@@ -151,7 +151,7 @@ function AppRoutes() {
                     outline: 'none',
                   },
                 }}>
-                Login
+                Conectare
               </Button>
               <Button color="inherit" component={Link} to="/register"
                 sx={{
@@ -169,7 +169,7 @@ function AppRoutes() {
                     outline: 'none',
                   },
                 }}>
-                Register
+                Înregistrare
               </Button>
             </>
           )}

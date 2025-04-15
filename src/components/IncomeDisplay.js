@@ -11,7 +11,7 @@ export default function IncomeDisplay({ netIncome, salary }) {
   return (
     <>
       <Box onClick={() => isMobile && setOpenIncomeModal(true)} sx={{ cursor: isMobile ? 'pointer' : 'default' }}>
-          Net Monthly Income: {salary ? netIncome.toFixed(2) : ""} RON
+        Venit lunar net: {salary ? netIncome.toFixed(2) : ""} RON
       </Box>
 
       <IncomeModal open={openIncomeModal} onClose={() => setOpenIncomeModal(false)} />

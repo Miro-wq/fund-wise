@@ -33,13 +33,13 @@ function UtilitiesModal({
 }) {
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
-      <DialogTitle>Enter Monthly Utilities</DialogTitle>
+      <DialogTitle>Introduceți utilități lunare</DialogTitle>
       <DialogContent>
         <Paper elevation={0} sx={{ p: 2 }}>
           <Grid container spacing={2}>
             <Grid size={{ xs: 12, sm: 6 }}>
               <TextField
-                label="Rent"
+                label="Chirie"
                 type="number"
                 variant="outlined"
                 fullWidth
@@ -49,7 +49,7 @@ function UtilitiesModal({
             </Grid>
             <Grid size={{ xs: 12, sm: 6 }}>
               <TextField
-                label="Water"
+                label="Apă"
                 type="number"
                 variant="outlined"
                 fullWidth
@@ -59,7 +59,7 @@ function UtilitiesModal({
             </Grid>
             <Grid size={{ xs: 12, sm: 6 }}>
               <TextField
-                label="Gas"
+                label="Gaz"
                 type="number"
                 variant="outlined"
                 fullWidth
@@ -69,7 +69,7 @@ function UtilitiesModal({
             </Grid>
             <Grid size={{ xs: 12, sm: 6 }}>
               <TextField
-                label="Electricity"
+                label="Electricitate"
                 type="number"
                 variant="outlined"
                 fullWidth
@@ -99,7 +99,7 @@ function UtilitiesModal({
             </Grid>
             <Grid size={{ xs: 12, sm: 6 }}>
               <TextField
-                label="Phone"
+                label="Telefon"
                 type="number"
                 variant="outlined"
                 fullWidth
@@ -109,7 +109,7 @@ function UtilitiesModal({
             </Grid>
             <Grid size={{ xs: 12, sm: 6 }}>
               <TextField
-                label="Bank"
+                label="Bancă"
                 type="number"
                 variant="outlined"
                 fullWidth
@@ -121,9 +121,9 @@ function UtilitiesModal({
         </Paper>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>Cancel</Button>
+        <Button onClick={onClose}>Anulează</Button>
         <Button onClick={onSave} variant="contained" color="primary">
-          Save Utilities
+          Salvează
         </Button>
       </DialogActions>
     </Dialog>

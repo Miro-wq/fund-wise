@@ -39,17 +39,17 @@ function Register() {
   return (
     <Container maxWidth="sm">
       <Typography variant="h4" align="center" gutterBottom>
-        Welcome to ExpenseTracker
+        Bine ați venit la ExpenseTracker
       </Typography>
       <Typography variant="body1" align="center" color="textSecondary" gutterBottom>
-        Sign in to your account or create a new one
+        Creați un cont nou
       </Typography>
       <Paper elevation={3} sx={{ p: 4, mt: 8 }}>
         <Typography variant="h5" align="left" gutterBottom>
-          Register
+          Înregistrare
         </Typography>
         <Typography variant="body1" align="left" color="textSecondary" gutterBottom>
-          Create a new account to get started
+          Creați un cont nou pentru a începe
         </Typography>
         <Box
           component="form"
@@ -62,14 +62,14 @@ function Register() {
           }}
         >
           <TextField
-            label="username"
+            label="utilizator"
             variant="outlined"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
           />
           <TextField
-            label="password"
+            label="parolă"
             type="password"
             variant="outlined"
             value={password}
@@ -77,7 +77,7 @@ function Register() {
             required
           />
           <TextField
-            label="confirm password"
+            label="confirmă parolă"
             type="password"
             variant="outlined"
             value={confirmPassword}
@@ -90,17 +90,17 @@ function Register() {
             </Typography>
           )}
           <Button type="submit" variant="contained" color="primary">
-            Register
+            Înregistrare
           </Button>
         </Box>
         <Typography variant="body2" align="center" sx={{ mt: 2 }}>
-          Already have an account?{' '}
+          Aveți deja un cont?{' '}
           <Link to="/login" style={{ textDecoration: 'none', color: '#1976d2' }}>
-            Login
+            Conectați-vă
           </Link>
         </Typography>
         <Typography variant="body2" align="center" sx={{ mt: 2 }}>
-          Check out <Link to="/whats-new" style={{ textDecoration: 'none', color: '#1976d2' }}>What's New!</Link> page for the latest updates.
+          Consultă pagina <Link to="/whats-new" style={{ textDecoration: 'none', color: '#1976d2' }}>Noutăți!</Link> pentru cele mai recente actualizări.
         </Typography>
       </Paper>
     </Container>
