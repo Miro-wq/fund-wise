@@ -29,6 +29,3 @@ Track daily expenses, set reminders, browse by keyword or date, and stay in cont
 Coming soon: offline sync, pie chart analytics.
 
 ---
-
-### 📜 License
-MIT
