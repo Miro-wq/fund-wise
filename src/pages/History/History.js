@@ -117,15 +117,15 @@ function History() {
             </Typography>
 
             <Typography variant="subtitle1" sx={{
-              m: 0, fontWeight: 'bold', background: 'rgb(208 229 255)', padding: '1rem', textAlign: 'center', borderRadius: '5px', mt: 2, color: (theme) =>
-                theme.palette.mode === 'dark' ? '#000' : undefined
+              m: 0, fontWeight: 'bold', background: 'conic-gradient(at top right, #ac95ed 225deg 200deg, #a28ae9 226deg 243deg, #987fe4 244deg 255deg, #8d6ee2 256deg)', padding: '1rem', minHeight: '10em', textAlign: 'center', borderRadius: '5px', mt: 2, color: (theme) =>
+                theme.palette.mode === 'dark' ? '#fff' : '#000'
             }}>
               Venit lunar: {salary} RON
             </Typography>
 
             <Typography variant="subtitle1" sx={{
-              m: 0, fontWeight: 'bold', background: 'rgb(255 207 236)', padding: '1rem', textAlign: 'center', borderRadius: '5px', mt: 2, color: (theme) =>
-                theme.palette.mode === 'dark' ? '#000' : undefined
+              m: 0, fontWeight: 'bold', background: 'conic-gradient(at top right, #d08eef 225deg 200deg, #c982e7 226deg 243deg, #c174e8 244deg 255deg, #bb67e3 256deg)', padding: '1rem', minHeight: '10em', textAlign: 'center', borderRadius: '5px', mt: 2, color: (theme) =>
+                theme.palette.mode === 'dark' ? '#fff' : '#000'
             }}>
               Venituri suplimentare: {extraIncome} RON
             </Typography>

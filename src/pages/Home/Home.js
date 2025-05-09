@@ -222,22 +222,22 @@ function Home() {
               flexDirection: { xs: 'column', md: 'row' },
             }}>
               <Typography variant="subtitle1" sx={{
-                m: 0, fontWeight: 'bold', background: 'rgb(208 229 255)', padding: '1rem', textAlign: 'center', borderRadius: '5px', mt: 2, color: (theme) =>
-                  theme.palette.mode === 'dark' ? '#000' : undefined
+                m: 0, fontWeight: 'bold', background: 'conic-gradient(at top right, #ac95ed 225deg 200deg, #a28ae9 226deg 243deg, #987fe4 244deg 255deg, #8d6ee2 256deg)', minHeight: '10em', padding: '1rem', textAlign: 'center', borderRadius: '5px', mt: 2, color: (theme) =>
+                  theme.palette.mode === 'dark' ? '#fff' : '#000'
               }}>
                 <IncomeDisplay netIncome={netIncome} salary={salary} />
               </Typography>
 
               <Typography variant="subtitle1" sx={{
-                m: 0, fontWeight: 'bold', background: 'rgb(255 212 212)', padding: '1rem', textAlign: 'center', borderRadius: '5px', mt: 2, color: (theme) =>
-                  theme.palette.mode === 'dark' ? '#000' : undefined
+                m: 0, fontWeight: 'bold', background: 'conic-gradient(at top right, #d08eef 225deg 200deg, #c982e7 226deg 243deg, #c174e8 244deg 255deg, #bb67e3 256deg)', minHeight: '10em', padding: '1rem', textAlign: 'center', borderRadius: '5px', mt: 2, color: (theme) =>
+                  theme.palette.mode === 'dark' ? '#fff' : '#000'
               }}>
                 Cheltuieli efectuate astăzi: {expenses.length > 0 ? totalExpensesToday : 0} RON
               </Typography>
 
               <Typography variant="subtitle1" sx={{
-                m: 0, fontWeight: 'bold', background: 'rgb(212 255 225)', padding: '1rem', textAlign: 'center', borderRadius: '5px', mt: 2, color: (theme) =>
-                  theme.palette.mode === 'dark' ? '#000' : undefined
+                m: 0, fontWeight: 'bold', background: 'conic-gradient(at top right, #7a96ee 225deg 200deg, #6889ee 226deg 243deg, #5275e5 244deg 255deg, #4168e3 256deg)', minHeight: '10em', padding: '1rem', textAlign: 'center', borderRadius: '5px', mt: 2, color: (theme) =>
+                  theme.palette.mode === 'dark' ? '#fff' : '#000'
               }}>
                 Limită zilnică: {localSalary ? dailyLimit.toFixed(2) : ""} RON
               </Typography>
@@ -258,8 +258,8 @@ function Home() {
           }}>
             <Typography variant="subtitle1" sx={{
               color: (theme) =>
-                theme.palette.mode === 'dark' ? 'undefined' : 'rgb(255 0 0)', marginBottom: '10px', background: (theme) =>
-                  theme.palette.mode === 'dark' ? '#26436d' : '#f5f5f5', padding: '10px', textAlign: 'center', borderRadius: '5px'
+                theme.palette.mode === 'dark' ? 'undefined' : ' #000', marginBottom: '10px', background: (theme) =>
+                  theme.palette.mode === 'dark' ? ' #2f3944' : ' #f5f5f5', padding: '10px', textAlign: 'center', borderRadius: '17px'
             }}>Înainte de a introduce venituri noi, vă rugăm să exportați cheltuielile în format PDF din pagina Istoric.</Typography>
 
             <Typography variant="h6" gutterBottom>
@@ -278,8 +278,8 @@ function Home() {
 
               <Typography variant="subtitle1" sx={{
                 color: (theme) =>
-                  theme.palette.mode === 'dark' ? 'undefined' : 'rgb(255 0 0)', marginBottom: '10px', background: (theme) =>
-                    theme.palette.mode === 'dark' ? '#26436d' : '#f5f5f5', padding: '10px', textAlign: 'center', borderRadius: '5px'
+                  theme.palette.mode === 'dark' ? 'undefined' : ' #000', marginBottom: '10px', background: (theme) =>
+                    theme.palette.mode === 'dark' ? ' #2f3944' : ' #f5f5f5', padding: '10px', textAlign: 'center', borderRadius: '17px'
               }}>ATENȚIE! Veniturile noi sau veniturile suplimentare vor reseta toate cheltuielile și istoricul!</Typography>
 
               <TextField label="Venit suplimentar" type="number" variant="outlined" value={localExtraIncome} onChange={(e) => setLocalExtraIncome(e.target.value)} />

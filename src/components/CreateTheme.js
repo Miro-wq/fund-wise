@@ -4,8 +4,8 @@ export const darkTheme = createTheme({
   palette: {
     mode: 'dark',
     background: {
-      default: '#1a1e23', // culoare de fundal închisă
-      paper: '#1d2228', // culoare de fundal închisă pentru elemente
+      default: ' #1a1e23', // culoare de fundal închisă
+      paper: ' #1d2228', // culoare de fundal închisă pentru elemente
     },
     primary: {
       main: '#fff',
@@ -22,9 +22,9 @@ export const darkTheme = createTheme({
     MuiButton: {
       styleOverrides: {
         containedPrimary: {
-          backgroundColor: '#212830', // verde deschis
+          backgroundColor: ' #b155da',
           '&:hover': {
-            backgroundColor: lighten('#212830', 0.2),
+            backgroundColor: lighten('#b155da', 0.2),
           },
           border: '1px solid #424c5d',
           color: '#fff',
@@ -35,6 +35,17 @@ export const darkTheme = createTheme({
       styleOverrides: {
         root: {
           color: '#fff',
+        },
+      },
+    },
+    MuiLinearProgress: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#404146',
+        },
+        bar: {
+          backgroundColor: '#bc69df',
+          borderRadius: 5,
         },
       },
     },
@@ -63,6 +74,14 @@ export const lightTheme = createTheme({
       styleOverrides: {
         root: {
           backgroundColor: '#050b16'
+        },
+      },
+    },
+    MuiLinearProgress: {
+      styleOverrides: {
+        bar: {
+          backgroundColor: '#000',
+          borderRadius: 5,
         },
       },
     },
