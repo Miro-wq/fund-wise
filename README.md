@@ -1,4 +1,5 @@
 # Fund-Wise: Expense Tracker & Monthly Budgeting Tool
+## Interested? Read more on how it works, [here](https://deepwiki.com/Miro-wq/fund-wise)
 
 **Fund-Wise** is a modern expense tracker app designed to help you manage your monthly income and spending with ease.  
 Track daily expenses, set reminders, browse by keyword or date, and stay in control of your finances — all from a slick, component-based UI.
